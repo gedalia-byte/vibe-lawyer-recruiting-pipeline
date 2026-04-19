@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifest Global Pipeline — OpenAI / Tati Meeting</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #080e1a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 28px 40px;
+  }
+
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .logo {
+    width: 46px; height: 46px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 13px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 21px; color: #fff;
+    box-shadow: 0 4px 24px rgba(59,130,246,0.35);
+  }
+  .header h1 { font-size: 23px; font-weight: 700; color: #f8fafc; letter-spacing: -0.03em; }
+  .header .subtitle { font-size: 13px; color: #94a3b8; font-weight: 400; margin-top: 2px; }
+  .header-right { text-align: right; font-size: 12px; color: #64748b; }
+  .header-right .date { font-size: 14px; color: #94a3b8; font-weight: 500; }
+
+  .stats-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+  .stat-card {
+    flex: 1; background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05); border-radius: 14px;
+    padding: 14px 18px; text-align: center; transition: all 0.3s;
+    cursor: pointer; user-select: none;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); transform: translateY(-2px); }
+  .stat-card:active { transform: translateY(0); }
+  .stat-card.active-stat { border-color: rgba(59,130,246,0.5); background: rgba(59,130,246,0.08); box-shadow: 0 0 24px rgba(59,130,246,0.12); }
+  .stat-value {
+    font-size: 30px; font-weight: 800;
+    background: linear-gradient(135deg, #f8fafc, #94a3b8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-value.green { background: linear-gradient(135deg, #4ade80, #22c55e); -webkit-background-clip: text; }
+  .stat-value.blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); -webkit-background-clip: text; }
+  .stat-value.purple { background: linear-gradient(135deg, #a78bfa, #8b5cf6); -webkit-background-clip: text; }
+  .stat-value.amber { background: linear-gradient(135deg, #fbbf24, #f59e0b); -webkit-background-clip: text; }
+  .stat-label { font-size: 10px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  /* Drilldown overlay */
+  .drilldown-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(4,8,16,0.92); backdrop-filter: blur(20px);
+    z-index: 1000; overflow-y: auto; animation: fadeIn 0.3s ease;
+  }
+  .drilldown-overlay.visible { display: block; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .drilldown-inner { max-width: 900px; margin: 0 auto; padding: 40px; }
+  .drilldown-back {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 8px 18px; color: #94a3b8;
+    font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s; margin-bottom: 28px;
+  }
+  .drilldown-back:hover { background: rgba(255,255,255,0.1); color: #e2e8f0; }
+  .drilldown-back svg { width: 16px; height: 16px; }
+  .drilldown-title { font-size: 28px; font-weight: 800; color: #f8fafc; margin-bottom: 6px; letter-spacing: -0.03em; }
+  .drilldown-subtitle { font-size: 14px; color: #64748b; margin-bottom: 32px; }
+
+  .drill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 12px; }
+  .drill-card {
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px; padding: 20px 24px; transition: all 0.2s;
+  }
+  .drill-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+  .drill-card-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .drill-card-title { font-size: 16px; font-weight: 700; color: #f8fafc; display: flex; align-items: center; gap: 10px; }
+  .drill-card-title .flag { font-size: 22px; }
+  .drill-card-meta { font-size: 11px; color: #64748b; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+  .drill-candidate {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .drill-candidate:last-child { border-bottom: none; }
+  .drill-candidate-info { flex: 1; }
+  .drill-candidate-name { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+  .drill-candidate-name.star { color: #4ade80; }
+  .drill-candidate-name a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .drill-candidate-name a:hover { color: #60a5fa; text-decoration: underline; }
+  .drill-candidate-firm { font-size: 12px; color: #64748b; margin-top: 1px; }
+  .drill-candidate-market { font-size: 11px; color: #475569; margin-top: 1px; }
+
+  .round-badge {
+    font-size: 11px; font-weight: 600; padding: 3px 10px;
+    border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+  }
+  .round-final { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .round-r2 { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .round-r1 { background: rgba(139,92,246,0.15); color: #a78bfa; }
+  .round-sourced { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .round-hold { background: rgba(148,163,184,0.1); color: #64748b; }
+
+  .map-section {
+    position: relative;
+    background: radial-gradient(ellipse at 50% 50%, #0c1929 0%, #080e1a 100%);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 20px;
+    overflow: hidden; margin-bottom: 20px;
+    box-shadow: 0 0 80px rgba(59,130,246,0.04), inset 0 0 80px rgba(0,0,0,0.3);
+  }
+  .map-container { position: relative; width: 100%; aspect-ratio: 2.1 / 1; overflow: hidden; }
+  #map-svg { width: 100%; height: 100%; display: block; }
+
+  .zoom-controls {
+    position: absolute; bottom: 16px; left: 16px;
+    display: flex; flex-direction: column; gap: 4px; z-index: 50;
+  }
+  .zoom-btn {
+    width: 36px; height: 36px;
+    background: rgba(15,23,42,0.85); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
+    color: #94a3b8; font-size: 18px; font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .zoom-btn:hover { background: rgba(30,41,59,0.95); color: #e2e8f0; border-color: rgba(255,255,255,0.2); }
+  .zoom-btn:active { transform: scale(0.95); }
+  .zoom-level { text-align: center; font-size: 10px; color: #475569; font-weight: 600; padding: 2px 0; }
+
+  .sphere { fill: url(#ocean-gradient); }
+  .country-path { fill: #131c2e; stroke: #1e2d45; stroke-width: 0.5; transition: fill 0.3s; }
+  .country-path:hover { fill: #1a2740; }
+  .country-highlight { fill: #1a2a42; stroke: #2a4060; stroke-width: 0.8; }
+  .country-highlight:hover { fill: #203350; }
+  .graticule { fill: none; stroke: #1a2540; stroke-width: 0.3; stroke-opacity: 0.5; }
+
+  .arc-path { fill: none; stroke-linecap: round; }
+  @keyframes dash-flow { to { stroke-dashoffset: -20; } }
+  .arc-animated { animation: dash-flow 2s linear infinite; }
+
+  @keyframes pulse-glow-sm { 0%,100%{ r:16; opacity:0.14; } 50%{ r:24; opacity:0.04; } }
+  @keyframes pulse-glow-md { 0%,100%{ r:20; opacity:0.14; } 50%{ r:30; opacity:0.04; } }
+  @keyframes pulse-glow-lg { 0%,100%{ r:24; opacity:0.14; } 50%{ r:35; opacity:0.04; } }
+  @keyframes ring-glow-sm { 0%,100%{ r:9; opacity:0.28; } 50%{ r:13; opacity:0.12; } }
+  @keyframes ring-glow-md { 0%,100%{ r:11; opacity:0.28; } 50%{ r:15; opacity:0.12; } }
+  @keyframes ring-glow-lg { 0%,100%{ r:13; opacity:0.28; } 50%{ r:18; opacity:0.12; } }
+  .marker-pulse-sm { animation: pulse-glow-sm 3s ease-in-out infinite; }
+  .marker-pulse-md { animation: pulse-glow-md 3s ease-in-out infinite; }
+  .marker-pulse-lg { animation: pulse-glow-lg 3s ease-in-out infinite; }
+  .marker-ring-sm { animation: ring-glow-sm 3s ease-in-out infinite; }
+  .marker-ring-md { animation: ring-glow-md 3s ease-in-out infinite; }
+  .marker-ring-lg { animation: ring-glow-lg 3s ease-in-out infinite; }
+
+  .marker-dot {
+    cursor: pointer; transition: all 0.2s;
+    filter: drop-shadow(0 0 6px var(--glow-color, #3b82f6));
+  }
+  .marker-dot:hover { filter: brightness(1.4) drop-shadow(0 0 12px var(--glow-color, #3b82f6)); }
+
+  .callout-label {
+    font-family: 'Inter', sans-serif; pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.6);
+  }
+
+  .detail-card {
+    position: absolute; top: 16px; right: 16px; width: 370px;
+    max-height: calc(100% - 32px);
+    background: rgba(10,18,32,0.92); backdrop-filter: blur(24px);
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 40px rgba(59,130,246,0.08);
+    transform: translateX(420px);
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+  }
+  .detail-card.active { transform: translateX(0); }
+  .detail-header {
+    padding: 20px 24px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%);
+  }
+  .detail-header .city-name {
+    font-size: 19px; font-weight: 700; color: #f8fafc;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .detail-header .city-name .flag { font-size: 26px; }
+  .detail-close {
+    position: absolute; top: 16px; right: 16px; width: 28px; height: 28px; border-radius: 8px;
+    background: rgba(255,255,255,0.06); border: none; color: #94a3b8;
+    font-size: 16px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+  }
+  .detail-close:hover { background: rgba(255,255,255,0.12); color: #f8fafc; }
+  .entity-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; color: #94a3b8; }
+  .entity-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .detail-body { padding: 16px 24px 20px; overflow-y: auto; max-height: 400px; }
+  .candidates-count { font-size: 11px; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
+  .candidate-row {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .candidate-row:last-child { border-bottom: none; }
+  .candidate-name { font-size: 14px; font-weight: 600; color: #e2e8f0; }
+  .candidate-name.star { color: #4ade80; }
+  .candidate-name .star-icon { font-size: 12px; margin-right: 4px; }
+  .candidate-name a { color: inherit; text-decoration: none; transition: color 0.2s; }
+  .candidate-name a:hover { color: #60a5fa; text-decoration: underline; }
+  .candidate-firm { font-size: 12px; color: #64748b; margin-top: 2px; }
+  .extra-note {
+    margin-top: 12px; padding: 10px 14px;
+    background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.12);
+    border-radius: 10px; font-size: 12px; color: #60a5fa;
+  }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+  .country-card {
+    background: rgba(255,255,255,0.025); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 14px; padding: 16px 18px; cursor: pointer; transition: all 0.3s;
+  }
+  .country-card:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); transform: translateY(-2px); }
+  .country-card.selected { border-color: rgba(59,130,246,0.4); background: rgba(59,130,246,0.05); box-shadow: 0 0 30px rgba(59,130,246,0.08); }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .card-header .card-title { font-size: 14px; font-weight: 600; color: #f8fafc; display: flex; align-items: center; gap: 8px; }
+  .card-header .card-title .flag { font-size: 18px; }
+  .card-count { background: rgba(255,255,255,0.07); border-radius: 20px; padding: 2px 10px; font-size: 12px; font-weight: 600; color: #94a3b8; }
+  .card-entity { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #64748b; margin-bottom: 10px; }
+  .card-candidates { list-style: none; }
+  .card-candidates li { display: flex; align-items: center; justify-content: space-between; padding: 3px 0; font-size: 12px; color: #94a3b8; }
+  .card-candidates li .name { color: #cbd5e1; font-weight: 500; }
+  .card-candidates li .name a { color: inherit; text-decoration: none; }
+  .card-candidates li .name a:hover { color: #60a5fa; text-decoration: underline; }
+  .card-candidates li .name.star-name { color: #4ade80; font-weight: 600; }
+  .card-more { font-size: 11px; color: #64748b; margin-top: 4px; }
+
+  .legend {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    font-size: 12px; color: #64748b; padding: 14px 24px;
+    background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 12px;
+  }
+  .legend-title { font-weight: 600; color: #94a3b8; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .legend-sep { width: 1px; height: 16px; background: rgba(255,255,255,0.08); }
+  .footer { text-align: center; margin-top: 20px; font-size: 11px; color: #334155; }
+  .click-hint {
+    position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+    background: rgba(15,23,42,0.8); backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 20px;
+    padding: 6px 16px; font-size: 12px; color: #64748b;
+    pointer-events: none; transition: opacity 0.4s; z-index: 40;
+  }
+</style>
+</head>
+<body>
+
+<div class="drilldown-overlay" id="drilldown-overlay">
+  <div class="drilldown-inner" id="drilldown-inner"></div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <div class="header-left">
+      <div class="logo">M</div>
+      <div>
+        <h1>Global Expansion Pipeline</h1>
+        <div class="subtitle">Lawyer Recruiting & Entity Setup — All Markets</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="date">OpenAI / Tati Discovery Meeting</div>
+      <div>Monday, April 20, 2026 · 4:30 PM ET</div>
+    </div>
+  </div>
+
+  <div class="stats-bar" id="stats-bar">
+    <div class="stat-card" data-filter="markets"><div class="stat-value">7</div><div class="stat-label">Markets</div></div>
+    <div class="stat-card" data-filter="candidates"><div class="stat-value">24</div><div class="stat-label">Candidates</div></div>
+    <div class="stat-card" data-filter="final"><div class="stat-value green">1</div><div class="stat-label">Final Discussions</div></div>
+    <div class="stat-card" data-filter="r2"><div class="stat-value blue">2</div><div class="stat-label">Round 2</div></div>
+    <div class="stat-card" data-filter="r1"><div class="stat-value purple">8</div><div class="stat-label">Round 1</div></div>
+    <div class="stat-card" data-filter="sourced"><div class="stat-value amber">13</div><div class="stat-label">Sourced / Early</div></div>
+  </div>
+
+  <div class="main-content" id="main-content">
+    <div class="map-section">
+      <div class="map-container">
+        <svg id="map-svg"></svg>
+        <div class="detail-card" id="detail-card"></div>
+        <div class="zoom-controls">
+          <button class="zoom-btn" id="zoom-in" title="Zoom in">+</button>
+          <div class="zoom-level" id="zoom-level">1x</div>
+          <button class="zoom-btn" id="zoom-out" title="Zoom out">&minus;</button>
+          <button class="zoom-btn" id="zoom-reset" title="Reset view" style="margin-top:4px;font-size:13px;">&#8634;</button>
+        </div>
+        <div class="click-hint" id="click-hint">Scroll to zoom · Drag to pan · Click markers for details</div>
+      </div>
+    </div>
+
+    <div class="cards-grid" id="cards-grid"></div>
+
+    <div class="legend">
+      <span class="legend-title">Pipeline Stage</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> Final</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#3b82f6"></span> Round 2</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#8b5cf6"></span> Round 1</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span> Sourced</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#64748b"></span> On Hold</span>
+      <span class="legend-sep"></span>
+      <span class="legend-title">Entity Status</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#22c55e"></span> In Progress</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#eab308"></span> Behind / Deciding</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#f97316"></span> Early Stage</span>
+      <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Not Started</span>
+    </div>
+    <div class="footer">Data sourced from Slack, recruiter emails (JAM Talent), and internal comms — April 18, 2026</div>
+  </div>
+</div>
+
+<script>
+const COUNTRIES = [
+  {
+    id: "uk", name: "United Kingdom", city: "London", flag: "\u{1F1EC}\u{1F1E7}",
+    coords: [-0.1278, 51.5074],
+    labelSide: "right",
+    entityStatus: "Entity setup & accounting in progress",
+    entityColor: "#22c55e",
+    candidates: [
+      { name: "Antonio Lam", firm: "Envoy / Newland Chase", round: "Final Discussions", star: true, linkedin: "https://www.linkedin.com/in/antonio-lam/" },
+      { name: "Kasia Kingsmill", firm: "ex-Fragomen \u2192 Brecher\u2019s", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
+      { name: "Emma Holmes", firm: "Direct", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Emma%20Holmes%20immigration%20London" },
+      { name: "Zohra Hussain", firm: "Fragomen", round: "On Hold", linkedin: "https://www.linkedin.com/in/zohra-hussain-00493414b/" },
+      { name: "Rizwana Quazi", firm: "Deloitte", round: "On Hold", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
+    ],
+  },
+  {
+    id: "ie", name: "Ireland", city: "Dublin", flag: "\u{1F1EE}\u{1F1EA}",
+    coords: [-6.2603, 53.3498],
+    labelSide: "left",
+    entityStatus: "Accounting slightly behind, catching up",
+    entityColor: "#eab308",
+    candidates: [
+      { name: "Aine Hartigan", firm: "ex-Newland Chase / Fragomen", round: "On Hold (R2)", linkedin: "https://www.linkedin.com/in/%C3%A1ine-hartigan-6b84094/" },
+      { name: "Aaron Flynn", firm: "Envoy", round: "Sourced", linkedin: "https://www.linkedin.com/in/aaron-flynn-0483505/" },
+      { name: "Declan Groarke", firm: "Lewis Silkin", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Declan%20Groarke%20Lewis%20Silkin" },
+    ],
+  },
+  {
+    id: "ca", name: "Canada", city: "Toronto", flag: "\u{1F1E8}\u{1F1E6}",
+    coords: [-79.3832, 43.6532],
+    labelSide: "left",
+    entityStatus: "Accounting slightly behind, catching up",
+    entityColor: "#eab308",
+    candidates: [
+      { name: "Jesse Root", firm: "Ericsson", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Jesse%20Root%20Ericsson%20immigration" },
+      { name: "Phil Tremblay", firm: "FGI Canada (CAD 1M+ rev)", round: "Round 1", linkedin: "https://www.linkedin.com/in/philippetremblay/" },
+      { name: "Kristine Dela Cruz", firm: "Deloitte (CAD 6M rev)", round: "Round 1", linkedin: "https://www.linkedin.com/in/kristineannedelacruz/" },
+    ],
+    extra: "Acquisition opportunity: Greenberg Hameed (2 partners, ex-KPMG)"
+  },
+  {
+    id: "in", name: "India", city: "Bangalore", flag: "\u{1F1EE}\u{1F1F3}",
+    coords: [77.5946, 12.9716],
+    labelSide: "right",
+    entityStatus: "Selecting accountant",
+    entityColor: "#f97316",
+    candidates: [
+      { name: "Swarupp Tamhane", firm: "Vialto Partners (Partner)", round: "Sourced \u2014 Interview Fri", star: true, linkedin: "https://www.linkedin.com/search/results/all/?keywords=Swarupp%20Tamhane%20Vialto" },
+    ],
+  },
+  {
+    id: "sg", name: "Singapore", city: "Singapore", flag: "\u{1F1F8}\u{1F1EC}",
+    coords: [103.8198, 1.3521],
+    labelSide: "right",
+    entityStatus: "Not yet started",
+    entityColor: "#ef4444",
+    candidates: [
+      { name: "Jo Ann Tabing Adams", firm: "ex-UBS / Credit Suisse", round: "Pending R1", linkedin: "https://sg.linkedin.com/in/joanntabingadams" },
+      { name: "Christina Karl", firm: "est. BAL Singapore & Shanghai", round: "Pending R1", linkedin: "https://www.linkedin.com/in/christinakarl-deloitte/" },
+      { name: "Su Vien Tan", firm: "McKinsey (in-house)", round: "Pending R1", linkedin: "https://www.linkedin.com/in/su-vien-tan-192437103/" },
+      { name: "Regina Tung", firm: "Envoy / CIP", round: "Sourced", linkedin: "https://sg.linkedin.com/in/regina-tung-b9511732" },
+      { name: "Priscilla Tham", firm: "ex-Sumitomo Mitsui Banking", round: "Sourced", linkedin: "https://sg.linkedin.com/in/priscilla-tham-0ab6b12" },
+    ],
+  },
+  {
+    id: "au", name: "Australia", city: "Sydney", flag: "\u{1F1E6}\u{1F1FA}",
+    coords: [151.2093, -33.8688],
+    labelSide: "right",
+    entityStatus: "Need final decision on provider",
+    entityColor: "#eab308",
+    candidates: [
+      { name: "Alicia Powyer", firm: "Deloitte", round: "Round 2", linkedin: "https://www.linkedin.com/in/alicia-powyer-1a36b731/" },
+      { name: "Angel Chambers", firm: "Deloitte (partner track)", round: "Round 1 \u2192 R2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Angel%20Chambers%20Deloitte%20immigration%20Australia" },
+      { name: "Maija Morris", firm: "ex-Credit Suisse / Deloitte", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Maija%20Morris%20immigration%20Australia" },
+      { name: "Mark Welch", firm: "Serving AU from Scotland", round: "Round 1", linkedin: "https://uk.linkedin.com/in/mark-welch-712a3713" },
+      { name: "Polina Oussova", firm: "ex-Deloitte / BAL", round: "Sourced", linkedin: "https://www.linkedin.com/in/polina-oussova-69ba6621/" },
+      { name: "Belinda Man", firm: "ex-Deloitte (own firm)", round: "Sourced", linkedin: "https://au.linkedin.com/in/belinda-man-1b19b046" },
+      { name: "Kate Vircoe", firm: "Newland Chase", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kate%20Vircoe%20Newland%20Chase%20Australia" },
+    ],
+    extra: "Acquisition opportunity: 2 candidates with 7-person firm"
+  },
+];
+
+function getRoundClass(round) {
+  if (round.includes("Final")) return "round-final";
+  if (round.includes("Round 2") || round.includes("R2")) return "round-r2";
+  if (round.includes("Round 1")) return "round-r1";
+  if (round.includes("Hold")) return "round-hold";
+  return "round-sourced";
+}
+
+function getMarkerColor(country) {
+  const c = country.candidates;
+  if (c.some(x => x.round.includes("Final"))) return "#22c55e";
+  if (c.some(x => x.round.includes("Round 2") || x.round.includes("R2"))) return "#3b82f6";
+  if (c.some(x => x.round.includes("Round 1"))) return "#8b5cf6";
+  return "#f59e0b";
+}
+
+function getMarkerRadius(count) {
+  // Subtle scaling: 4.5 for 1 candidate up to ~8 for 7
+  return 3.5 + Math.sqrt(count) * 1.8;
+}
+
+function getSizeClass(count) {
+  if (count <= 2) return "sm";
+  if (count <= 5) return "md";
+  return "lg";
+}
+
+function matchesFilter(round, filter) {
+  if (filter === "final") return round.includes("Final");
+  if (filter === "r2") return round.includes("Round 2") || round.includes("R2");
+  if (filter === "r1") return round.includes("Round 1") && !round.includes("R2");
+  if (filter === "sourced") return !round.includes("Final") && !round.includes("Round 2") && !round.includes("R2") && !round.includes("Round 1");
+  return true;
+}
+
+function linkedName(cand, extraClass) {
+  const cls = (cand.star ? 'star ' : '') + (extraClass || '');
+  const starIcon = cand.star ? '\u2B50 ' : '';
+  if (cand.linkedin) {
+    return '<span class="' + cls.trim() + '"><a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + starIcon + cand.name + '</a></span>';
+  }
+  return '<span class="' + cls.trim() + '">' + starIcon + cand.name + '</span>';
+}
+
+let selected = null;
+
+// Drilldown
+const backArrowSvg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 2L4 8l6 6"/></svg>';
+
+function closeDrilldown() {
+  document.getElementById("drilldown-overlay").classList.remove("visible");
+  document.querySelectorAll(".stat-card").forEach(el => el.classList.remove("active-stat"));
+}
+
+function openDrilldown(filter) {
+  const overlay = document.getElementById("drilldown-overlay");
+  const inner = document.getElementById("drilldown-inner");
+  document.querySelectorAll(".stat-card").forEach(el => {
+    el.classList.toggle("active-stat", el.dataset.filter === filter);
+  });
+
+  let html = '<button class="drilldown-back" onclick="closeDrilldown()">' + backArrowSvg + ' Back to Map</button>';
+
+  if (filter === "markets") {
+    html += '<div class="drilldown-title">7 Markets</div>';
+    html += '<div class="drilldown-subtitle">All active recruiting markets with entity setup status</div>';
+    html += '<div class="drill-grid">';
+    COUNTRIES.forEach(c => {
+      html += '<div class="drill-card">';
+      html += '<div class="drill-card-header">';
+      html += '<div class="drill-card-title"><span class="flag">' + c.flag + '</span> ' + c.city + ', ' + c.name + '</div>';
+      html += '<div class="drill-card-meta"><span style="width:8px;height:8px;border-radius:50%;background:' + c.entityColor + ';display:inline-block"></span> ' + c.entityStatus + '</div>';
+      html += '</div>';
+      c.candidates.forEach(cand => {
+        html += '<div class="drill-candidate"><div class="drill-candidate-info">';
+        html += '<div class="drill-candidate-name">' + linkedName(cand, 'drill-candidate-name').replace('<span class="','').replace('">','">') + '</div>';
+        html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
+        html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
+      });
+      if (c.extra) html += '<div class="extra-note" style="margin-top:12px">\u{1F4A1} ' + c.extra + '</div>';
+      html += '</div>';
+    });
+    html += '</div>';
+
+  } else if (filter === "candidates") {
+    const all = [];
+    COUNTRIES.forEach(c => c.candidates.forEach(cand => all.push({ ...cand, market: c.flag + ' ' + c.city })));
+    html += '<div class="drilldown-title">24 Candidates</div>';
+    html += '<div class="drilldown-subtitle">All candidates across every market</div>';
+    html += '<div class="drill-grid"><div class="drill-card" style="grid-column:1/-1">';
+    all.forEach(cand => {
+      html += '<div class="drill-candidate"><div class="drill-candidate-info">';
+      html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
+      html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
+      html += '<div class="drill-candidate-market">' + cand.market + '</div>';
+      html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
+    });
+    html += '</div></div>';
+
+  } else {
+    const labels = { final: "Final Discussions", r2: "Round 2", r1: "Round 1", sourced: "Sourced / Early" };
+    const filtered = [];
+    COUNTRIES.forEach(c => c.candidates.forEach(cand => {
+      if (matchesFilter(cand.round, filter)) filtered.push({ ...cand, market: c.flag + ' ' + c.city });
+    }));
+    html += '<div class="drilldown-title">' + filtered.length + ' ' + (labels[filter] || filter) + '</div>';
+    html += '<div class="drilldown-subtitle">Candidates at this pipeline stage</div>';
+    html += '<div class="drill-grid"><div class="drill-card" style="grid-column:1/-1">';
+    filtered.forEach(cand => {
+      html += '<div class="drill-candidate"><div class="drill-candidate-info">';
+      html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
+      html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
+      html += '<div class="drill-candidate-market">' + cand.market + '</div>';
+      html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
+    });
+    if (!filtered.length) html += '<div style="padding:20px;color:#64748b;text-align:center;">No candidates at this stage</div>';
+    html += '</div></div>';
+  }
+
+  inner.innerHTML = html;
+  overlay.classList.add("visible");
+  overlay.scrollTop = 0;
+}
+
+document.querySelectorAll(".stat-card").forEach(card => {
+  card.addEventListener("click", () => {
+    const f = card.dataset.filter;
+    if (document.getElementById("drilldown-overlay").classList.contains("visible") && card.classList.contains("active-stat")) {
+      closeDrilldown();
+    } else { openDrilldown(f); }
+  });
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeDrilldown(); });
+
+// Detail card
+function showDetail(country) {
+  selected = country.id;
+  const card = document.getElementById("detail-card");
+  document.getElementById("click-hint").style.opacity = "0";
+  let html = '<div class="detail-header">';
+  html += '<div class="city-name"><span class="flag">' + country.flag + '</span> ' + country.city + ', ' + country.name + '</div>';
+  html += '<button class="detail-close" onclick="hideDetail()">&times;</button>';
+  html += '<div class="entity-badge"><span class="entity-dot" style="background:' + country.entityColor + '"></span> Entity: ' + country.entityStatus + '</div>';
+  html += '</div><div class="detail-body">';
+  html += '<div class="candidates-count">' + country.candidates.length + ' candidate' + (country.candidates.length !== 1 ? 's' : '') + ' in pipeline</div>';
+  country.candidates.forEach(c => {
+    html += '<div class="candidate-row"><div>';
+    html += '<div class="candidate-name ' + (c.star ? 'star' : '') + '">';
+    if (c.linkedin) {
+      html += '<a href="' + c.linkedin + '" target="_blank" rel="noopener">' + (c.star ? '<span class="star-icon">\u2B50</span>' : '') + c.name + '</a>';
+    } else {
+      html += (c.star ? '<span class="star-icon">\u2B50</span>' : '') + c.name;
+    }
+    html += '</div><div class="candidate-firm">' + c.firm + '</div>';
+    html += '</div><span class="round-badge ' + getRoundClass(c.round) + '">' + c.round + '</span></div>';
+  });
+  if (country.extra) html += '<div class="extra-note">\u{1F4A1} ' + country.extra + '</div>';
+  html += '</div>';
+  card.innerHTML = html;
+  card.classList.add("active");
+  document.querySelectorAll(".country-card").forEach(el => el.classList.toggle("selected", el.dataset.id === country.id));
+}
+
+function hideDetail() {
+  selected = null;
+  document.getElementById("detail-card").classList.remove("active");
+  document.getElementById("click-hint").style.opacity = "1";
+  document.querySelectorAll(".country-card").forEach(el => el.classList.remove("selected"));
+}
+
+// Country cards
+function buildCards() {
+  const grid = document.getElementById("cards-grid");
+  COUNTRIES.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "country-card";
+    div.dataset.id = c.id;
+    div.onclick = () => selected === c.id ? hideDetail() : showDetail(c);
+    let ch = c.candidates.slice(0, 3).map(cand => {
+      const nameHtml = cand.linkedin
+        ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener" onclick="event.stopPropagation()">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>'
+        : (cand.star ? '\u2B50 ' : '') + cand.name;
+      return '<li><span class="name ' + (cand.star ? 'star-name' : '') + '">' + nameHtml + '</span>' +
+        '<span class="round-badge ' + getRoundClass(cand.round) + '" style="font-size:10px;padding:2px 8px;">' + cand.round.split('(')[0].trim() + '</span></li>';
+    }).join('');
+    div.innerHTML = '<div class="card-header"><div class="card-title"><span class="flag">' + c.flag + '</span> ' + c.city + '</div>' +
+      '<span class="card-count">' + c.candidates.length + '</span></div>' +
+      '<div class="card-entity"><span class="entity-dot" style="width:6px;height:6px;border-radius:50%;background:' + c.entityColor + ';display:inline-block"></span> ' + c.entityStatus + '</div>' +
+      '<ul class="card-candidates">' + ch + '</ul>' +
+      (c.candidates.length > 3 ? '<div class="card-more">+' + (c.candidates.length - 3) + ' more</div>' : '');
+    grid.appendChild(div);
+  });
+}
+
+// D3 Map
+async function buildMap() {
+  const svg = d3.select("#map-svg");
+  const container = document.querySelector(".map-container");
+  const width = container.clientWidth;
+  const height = container.clientHeight;
+  svg.attr("viewBox", "0 0 " + width + " " + height);
+
+  const defs = svg.append("defs");
+  const og = defs.append("radialGradient").attr("id","ocean-gradient").attr("cx","50%").attr("cy","50%").attr("r","60%");
+  og.append("stop").attr("offset","0%").attr("stop-color","#0a1628");
+  og.append("stop").attr("offset","100%").attr("stop-color","#060c18");
+
+  const gf = defs.append("filter").attr("id","glow").attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
+  gf.append("feGaussianBlur").attr("stdDeviation","4").attr("result","blur");
+  const gm = gf.append("feMerge"); gm.append("feMergeNode").attr("in","blur"); gm.append("feMergeNode").attr("in","SourceGraphic");
+
+  const af = defs.append("filter").attr("id","arc-glow").attr("x","-50%").attr("y","-50%").attr("width","200%").attr("height","200%");
+  af.append("feGaussianBlur").attr("stdDeviation","2.5").attr("result","blur");
+  const am = af.append("feMerge"); am.append("feMergeNode").attr("in","blur"); am.append("feMergeNode").attr("in","SourceGraphic");
+
+  const projection = d3.geoNaturalEarth1().scale(width / 5.2).translate([width / 2, height / 1.75]);
+  const path = d3.geoPath().projection(projection);
+  const g = svg.append("g").attr("id","map-group");
+
+  g.append("path").datum({type:"Sphere"}).attr("class","sphere").attr("d",path);
+  g.append("path").datum(d3.geoGraticule().step([15,15])()).attr("class","graticule").attr("d",path);
+
+  const zoomBehavior = d3.zoom().scaleExtent([1,12]).translateExtent([[0,0],[width,height]])
+    .on("zoom", event => {
+      g.attr("transform", event.transform);
+      const k = event.transform.k, inv = 1/k;
+      document.getElementById("zoom-level").textContent = k.toFixed(1)+"x";
+      g.selectAll(".country-path").attr("stroke-width", 0.5*inv);
+      g.selectAll(".country-highlight").attr("stroke-width", 0.8*inv);
+      g.selectAll(".graticule").attr("stroke-width", 0.3*inv);
+      g.selectAll(".callout-label").each(function(){ d3.select(this).attr("font-size",(parseFloat(this.dataset.baseSize)||12)*Math.max(inv,0.35)+"px"); });
+    });
+  svg.call(zoomBehavior);
+  document.getElementById("zoom-in").addEventListener("click", () => svg.transition().duration(400).call(zoomBehavior.scaleBy,1.8));
+  document.getElementById("zoom-out").addEventListener("click", () => svg.transition().duration(400).call(zoomBehavior.scaleBy,0.55));
+  document.getElementById("zoom-reset").addEventListener("click", () => svg.transition().duration(500).call(zoomBehavior.transform,d3.zoomIdentity));
+
+  try {
+    const wd = await d3.json("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json");
+    const countries = topojson.feature(wd, wd.objects.countries);
+    const borders = topojson.mesh(wd, wd.objects.countries, (a,b) => a!==b);
+    const hIds = new Set(["826","372","124","356","702","036"]);
+
+    g.selectAll(".country-path").data(countries.features).enter().append("path")
+      .attr("class", d => hIds.has(d.id) ? "country-path country-highlight" : "country-path").attr("d",path);
+    g.append("path").datum(borders).attr("fill","none").attr("stroke","#1e2d45").attr("stroke-width",0.4).attr("stroke-linejoin","round");
+
+    const nyc = projection([-74.006, 40.7128]);
+    const arcG = g.append("g");
+
+    COUNTRIES.forEach(c => {
+      const t = projection(c.coords); if(!t) return;
+      const color = getMarkerColor(c);
+      const dx=t[0]-nyc[0], dy=t[1]-nyc[1], dist=Math.sqrt(dx*dx+dy*dy);
+      const mx=(nyc[0]+t[0])/2, my=(nyc[1]+t[1])/2 - dist*0.25;
+      arcG.append("path").attr("d","M"+nyc[0]+","+nyc[1]+" Q"+mx+","+my+" "+t[0]+","+t[1])
+        .attr("fill","none").attr("stroke",color).attr("stroke-width",2.5).attr("stroke-opacity",0.06).attr("filter","url(#arc-glow)");
+      arcG.append("path").attr("d","M"+nyc[0]+","+nyc[1]+" Q"+mx+","+my+" "+t[0]+","+t[1])
+        .attr("class","arc-path arc-animated").attr("stroke",color).attr("stroke-width",1.2).attr("stroke-opacity",0.35).attr("stroke-dasharray","6 14");
+    });
+
+    // NYC HQ
+    const hq = g.append("g");
+    hq.append("circle").attr("cx",nyc[0]).attr("cy",nyc[1]).attr("r",6).attr("fill","#f8fafc").attr("fill-opacity",0.15);
+    hq.append("circle").attr("cx",nyc[0]).attr("cy",nyc[1]).attr("r",3.5).attr("fill","#f8fafc").attr("stroke","#475569").attr("stroke-width",1.2);
+    hq.append("text").attr("x",nyc[0]+8).attr("y",nyc[1]+4).attr("class","callout-label").attr("data-base-size","10")
+      .attr("fill","#475569").attr("font-size","10px").attr("font-weight","700").attr("letter-spacing","0.06em").text("HQ \u2022 NEW YORK");
+
+    // City markers — sized by candidate count
+    const mG = g.append("g");
+
+    COUNTRIES.forEach(c => {
+      const pt = projection(c.coords); if(!pt) return;
+      const [px,py] = pt;
+      const color = getMarkerColor(c);
+      const r = getMarkerRadius(c.candidates.length);
+      const sz = getSizeClass(c.candidates.length);
+      const mg = mG.append("g").style("cursor","pointer")
+        .on("click", event => { event.stopPropagation(); selected===c.id ? hideDetail() : showDetail(c); });
+
+      // Pulse
+      mg.append("circle").attr("cx",px).attr("cy",py).attr("fill",color)
+        .attr("class","marker-pulse-"+sz).attr("filter","url(#glow)");
+      // Ring
+      mg.append("circle").attr("cx",px).attr("cy",py).attr("fill",color)
+        .attr("class","marker-ring-"+sz);
+      // Core dot — scaled
+      mg.append("circle").attr("cx",px).attr("cy",py).attr("r",r)
+        .attr("fill",color).attr("stroke","#0a1628").attr("stroke-width",2)
+        .attr("class","marker-dot").style("--glow-color",color).attr("filter","url(#glow)");
+
+      // Label — positioned based on labelSide to handle London/Dublin overlap
+      if (c.labelSide === "left") {
+        mg.append("text").attr("x",px-12).attr("y",py+4)
+          .attr("class","callout-label").attr("data-base-size","11").attr("text-anchor","end")
+          .attr("fill","#cbd5e1").attr("font-size","11px").attr("font-weight","600")
+          .text(c.flag + " " + c.city);
+      } else {
+        mg.append("text").attr("x",px+12).attr("y",py+4)
+          .attr("class","callout-label").attr("data-base-size","11")
+          .attr("fill","#cbd5e1").attr("font-size","11px").attr("font-weight","600")
+          .text(c.flag + " " + c.city);
+      }
+    });
+
+  } catch(e) {
+    console.warn("Map load failed", e);
+    COUNTRIES.forEach(c => {
+      const pt=projection(c.coords); if(!pt) return;
+      const color=getMarkerColor(c), r=getMarkerRadius(c.candidates.length);
+      g.append("circle").attr("cx",pt[0]).attr("cy",pt[1]).attr("r",r).attr("fill",color)
+        .attr("stroke","#0a1628").attr("stroke-width",2).style("cursor","pointer").attr("filter","url(#glow)")
+        .on("click",()=>showDetail(c));
+    });
+  }
+
+  svg.on("click", event => {
+    if (event.target===svg.node()||event.target.classList.contains("country-path")||event.target.classList.contains("sphere")) hideDetail();
+  });
+}
+
+buildCards();
+buildMap();
+</script>
+</body>
+</html>
