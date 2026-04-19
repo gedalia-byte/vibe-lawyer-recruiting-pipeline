@@ -120,6 +120,56 @@
   .round-sourced { background: rgba(245,158,11,0.15); color: #fbbf24; }
   .round-hold { background: rgba(148,163,184,0.1); color: #64748b; }
 
+  /* Filter bar (candidates drilldown) */
+  .filter-bar {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 20px; padding: 14px 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+  }
+  .filter-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .filter-row .filter-label {
+    font-size: 10px; color: #64748b; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    min-width: 62px;
+  }
+  .filter-chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: #94a3b8; padding: 5px 12px;
+    border-radius: 16px; font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.18s; font-family: inherit;
+  }
+  .filter-chip:hover { background: rgba(255,255,255,0.08); color: #cbd5e1; }
+  .filter-chip.active {
+    background: rgba(59,130,246,0.18);
+    border-color: rgba(59,130,246,0.5);
+    color: #60a5fa;
+  }
+
+  /* Firm / job history */
+  .firm-history {
+    display: flex; flex-wrap: wrap; gap: 5px;
+    margin-top: 4px; align-items: center;
+  }
+  .firm-pill {
+    font-size: 11px; padding: 2px 8px;
+    border-radius: 10px; white-space: nowrap;
+    font-weight: 500;
+  }
+  .firm-current {
+    background: rgba(34,197,94,0.12);
+    color: #4ade80;
+    border: 1px solid rgba(34,197,94,0.25);
+  }
+  .firm-prev {
+    background: rgba(148,163,184,0.06);
+    color: #94a3b8;
+    border: 1px solid rgba(148,163,184,0.12);
+  }
+  .firm-plain { font-size: 12px; color: #64748b; margin-top: 1px; }
+
   .map-section {
     position: relative;
     background: radial-gradient(ellipse at 50% 50%, #0c1929 0%, #080e1a 100%);
@@ -343,7 +393,7 @@ const COUNTRIES = [
     entityColor: "#22c55e",
     candidates: [
       { name: "Antonio Lam", firm: "Envoy / Newland Chase", round: "Final Discussions", star: true, linkedin: "https://www.linkedin.com/in/antonio-lam/" },
-      { name: "Kasia Kingsmill", firm: "ex-Fragomen \u2192 Brecher\u2019s", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
+      { name: "Kasia Kingsmill", firm: "Brecher\u2019s", history: ["Fragomen"], round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
       { name: "Emma Holmes", firm: "Direct", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Emma%20Holmes%20immigration%20London" },
       { name: "Zohra Hussain", firm: "Fragomen", round: "On Hold", linkedin: "https://www.linkedin.com/in/zohra-hussain-00493414b/" },
       { name: "Rizwana Quazi", firm: "Deloitte", round: "On Hold", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
@@ -425,6 +475,20 @@ function getRoundClass(round) {
   return "round-sourced";
 }
 
+// Renders firm + optional career history. If cand.history is a non-empty array,
+// shows the current firm as a green pill followed by past firms as gray pills.
+// Otherwise falls back to the plain single-line firm string (current behavior).
+function renderFirm(cand) {
+  if (Array.isArray(cand.history) && cand.history.length) {
+    let h = '<div class="firm-history">';
+    if (cand.firm) h += '<span class="firm-pill firm-current">' + cand.firm + '</span>';
+    cand.history.forEach(p => { h += '<span class="firm-pill firm-prev">' + p + '</span>'; });
+    h += '</div>';
+    return h;
+  }
+  return '<div class="firm-plain">' + (cand.firm || '') + '</div>';
+}
+
 function getMarkerColor(country) {
   const c = country.candidates;
   if (c.some(x => x.round.includes("Final"))) return "#22c55e";
@@ -469,6 +533,13 @@ const backArrowSvg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor"
 function closeDrilldown() {
   document.getElementById("drilldown-overlay").classList.remove("visible");
   document.querySelectorAll(".stat-card").forEach(el => el.classList.remove("active-stat"));
+  window._cFilter = { market: 'all', round: 'all' };
+}
+
+function applyCandFilter(dim, val) {
+  if (!window._cFilter) window._cFilter = { market: 'all', round: 'all' };
+  window._cFilter[dim] = val;
+  openDrilldown('candidates');
 }
 
 function openDrilldown(filter) {
@@ -492,8 +563,8 @@ function openDrilldown(filter) {
       html += '</div>';
       c.candidates.forEach(cand => {
         html += '<div class="drill-candidate"><div class="drill-candidate-info">';
-        html += '<div class="drill-candidate-name">' + linkedName(cand, 'drill-candidate-name').replace('<span class="','').replace('">','">') + '</div>';
-        html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
+        html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
+        html += renderFirm(cand);
         html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
       });
       if (c.extra) html += '<div class="extra-note" style="margin-top:12px">\u{1F4A1} ' + c.extra + '</div>';
@@ -502,18 +573,65 @@ function openDrilldown(filter) {
     html += '</div>';
 
   } else if (filter === "candidates") {
+    if (!window._cFilter) window._cFilter = { market: 'all', round: 'all' };
+    const f = window._cFilter;
     const all = [];
-    COUNTRIES.forEach(c => c.candidates.forEach(cand => all.push({ ...cand, market: c.flag + ' ' + c.city })));
-    html += '<div class="drilldown-title">24 Candidates</div>';
-    html += '<div class="drilldown-subtitle">All candidates across every market</div>';
-    html += '<div class="drill-grid"><div class="drill-card" style="grid-column:1/-1">';
-    all.forEach(cand => {
-      html += '<div class="drill-candidate"><div class="drill-candidate-info">';
-      html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
-      html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
-      html += '<div class="drill-candidate-market">' + cand.market + '</div>';
-      html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
+    COUNTRIES.forEach(c => c.candidates.forEach(cand => all.push({ ...cand, market: c.flag + ' ' + c.city, marketId: c.id })));
+
+    const matchRound = (round, r) => {
+      if (r === 'all') return true;
+      if (r === 'hold') return round.includes('Hold');
+      if (r === 'final') return round.includes('Final');
+      if (r === 'r2') return (round.includes('Round 2') || round.includes('R2')) && !round.includes('Hold');
+      if (r === 'r1') return round.includes('Round 1') && !round.includes('R2') && !round.includes('Hold');
+      if (r === 'sourced') return !round.includes('Final') && !round.includes('Round 2') && !round.includes('R2') && !round.includes('Round 1') && !round.includes('Hold');
+      return true;
+    };
+
+    const filtered = all.filter(cand =>
+      (f.market === 'all' || cand.marketId === f.market) &&
+      matchRound(cand.round, f.round)
+    );
+
+    const markets = COUNTRIES.map(c => ({ id: c.id, label: c.flag + ' ' + c.city }));
+    const rounds = [
+      { id: 'final', label: 'Final' },
+      { id: 'r2', label: 'Round 2' },
+      { id: 'r1', label: 'Round 1' },
+      { id: 'sourced', label: 'Sourced' },
+      { id: 'hold', label: 'On Hold' },
+    ];
+
+    const titleCount = filtered.length + (filtered.length === all.length ? '' : ' / ' + all.length);
+    html += '<div class="drilldown-title">' + titleCount + ' Candidates</div>';
+    html += '<div class="drilldown-subtitle">Filter across every market and pipeline stage</div>';
+
+    html += '<div class="filter-bar">';
+    html += '<div class="filter-row"><span class="filter-label">Market</span>';
+    html += '<button class="filter-chip' + (f.market === 'all' ? ' active' : '') + '" onclick="applyCandFilter(\'market\',\'all\')">All</button>';
+    markets.forEach(m => {
+      html += '<button class="filter-chip' + (f.market === m.id ? ' active' : '') + '" onclick="applyCandFilter(\'market\',\'' + m.id + '\')">' + m.label + '</button>';
     });
+    html += '</div>';
+    html += '<div class="filter-row"><span class="filter-label">Round</span>';
+    html += '<button class="filter-chip' + (f.round === 'all' ? ' active' : '') + '" onclick="applyCandFilter(\'round\',\'all\')">All</button>';
+    rounds.forEach(r => {
+      html += '<button class="filter-chip' + (f.round === r.id ? ' active' : '') + '" onclick="applyCandFilter(\'round\',\'' + r.id + '\')">' + r.label + '</button>';
+    });
+    html += '</div></div>';
+
+    html += '<div class="drill-grid"><div class="drill-card" style="grid-column:1/-1">';
+    if (!filtered.length) {
+      html += '<div style="padding:20px;color:#64748b;text-align:center;">No candidates match these filters</div>';
+    } else {
+      filtered.forEach(cand => {
+        html += '<div class="drill-candidate"><div class="drill-candidate-info">';
+        html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
+        html += renderFirm(cand);
+        html += '<div class="drill-candidate-market">' + cand.market + '</div>';
+        html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
+      });
+    }
     html += '</div></div>';
 
   } else {
@@ -528,7 +646,7 @@ function openDrilldown(filter) {
     filtered.forEach(cand => {
       html += '<div class="drill-candidate"><div class="drill-candidate-info">';
       html += '<div class="drill-candidate-name ' + (cand.star ? 'star' : '') + '">' + (cand.linkedin ? '<a href="' + cand.linkedin + '" target="_blank" rel="noopener">' + (cand.star ? '\u2B50 ' : '') + cand.name + '</a>' : (cand.star ? '\u2B50 ' : '') + cand.name) + '</div>';
-      html += '<div class="drill-candidate-firm">' + cand.firm + '</div>';
+      html += renderFirm(cand);
       html += '<div class="drill-candidate-market">' + cand.market + '</div>';
       html += '</div><span class="round-badge ' + getRoundClass(cand.round) + '">' + cand.round + '</span></div>';
     });
