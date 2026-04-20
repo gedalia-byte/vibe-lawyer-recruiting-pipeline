@@ -119,6 +119,7 @@
   .round-r1 { background: rgba(139,92,246,0.15); color: #a78bfa; }
   .round-sourced { background: rgba(245,158,11,0.15); color: #fbbf24; }
   .round-hold { background: rgba(148,163,184,0.1); color: #64748b; }
+  .round-rejected { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
 
   /* Filter bar (candidates drilldown) */
   .filter-bar {
@@ -346,11 +347,12 @@
 
   <div class="stats-bar" id="stats-bar">
     <div class="stat-card" data-filter="markets"><div class="stat-value" id="stat-markets">8</div><div class="stat-label">Markets</div></div>
-    <div class="stat-card" data-filter="candidates"><div class="stat-value">24</div><div class="stat-label">Candidates</div></div>
+    <div class="stat-card" data-filter="candidates"><div class="stat-value">31</div><div class="stat-label">Candidates</div></div>
     <div class="stat-card" data-filter="final"><div class="stat-value green">0</div><div class="stat-label">Final Discussions</div></div>
-    <div class="stat-card" data-filter="r2"><div class="stat-value blue">7</div><div class="stat-label">Round 2</div></div>
-    <div class="stat-card" data-filter="r1"><div class="stat-value purple">6</div><div class="stat-label">Round 1</div></div>
-    <div class="stat-card" data-filter="sourced"><div class="stat-value amber">11</div><div class="stat-label">Sourced / Early</div></div>
+    <div class="stat-card" data-filter="r2"><div class="stat-value blue">5</div><div class="stat-label">Round 2</div></div>
+    <div class="stat-card" data-filter="r1"><div class="stat-value purple">18</div><div class="stat-label">Round 1</div></div>
+    <div class="stat-card" data-filter="sourced"><div class="stat-value amber">2</div><div class="stat-label">Sourced / Early</div></div>
+    <div class="stat-card" data-filter="rejected"><div class="stat-value" style="background:linear-gradient(135deg,#f87171,#ef4444);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">6</div><div class="stat-label">Rejected</div></div>
   </div>
 
   <div class="main-content" id="main-content">
@@ -385,7 +387,7 @@
       <span class="legend-item"><span class="legend-dot" style="background:#f97316"></span> Early Stage</span>
       <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Not Started</span>
     </div>
-    <div class="footer">Data sourced from Slack, recruiter emails (JAM Talent), and internal comms — April 19, 2026</div>
+    <div class="footer">Data sourced from Manifest_Law_Candidate_Tracker, recruiter emails (JAM Talent), Slack, and internal comms — April 20, 2026</div>
   </div>
 </div>
 
@@ -398,11 +400,18 @@ const COUNTRIES = [
     entityStatus: "Entity setup & accounting in progress",
     entityColor: "#22c55e",
     candidates: [
-      { name: "Antonio Lam", firm: "Clarus Global", round: "Round 2", linkedin: "https://www.linkedin.com/in/antonio-lam/" },
-      { name: "Kasia Kingsmill", firm: "Brecher\u2019s (Bloomberg, Nvidia, Accenture)", history: ["Fragomen (15 yrs)"], round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
-      { name: "Emma Holmes", firm: "Direct", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Emma%20Holmes%20immigration%20London" },
+      { name: "Antonio Lam", firm: "Clarus Global", history: ["Envoy"], round: "Round 2", linkedin: "https://www.linkedin.com/in/antonio-lam/" },
+      { name: "Kasia Kingsmill", firm: "Brecher\u2019s (Bloomberg, Nvidia, Accenture)", history: ["Fragomen (15 yrs)"], round: "Round 1", linkedin: "https://www.linkedin.com/in/kasia-kingsmill-82a839a6" },
+      { name: "Emma Holmes", firm: "6 yrs OISC / IAA (government exp)", round: "Round 1" },
+      { name: "Michael Stewart", firm: "Armstrong Watson", round: "Round 1" },
+      { name: "Ray Rackham", firm: "UK immigration \u2014 published / panels / gov't tie-ins", round: "On Hold (R2)", linkedin: "https://www.linkedin.com/in/ray-rackham-a0814333/" },
       { name: "Zohra Hussain", firm: "Fragomen \u2014 global lead (Raytheon, LinkedIn, FIS)", round: "On Hold (R1)", linkedin: "https://www.linkedin.com/in/zohra-hussain-00493414b/" },
-      { name: "Rizwana Quazi", firm: "Deloitte \u2014 20+ yrs, leads immigration tech", round: "On Hold (R1)", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
+      { name: "Rizwana Quazi", firm: "Deloitte \u2014 20+ yrs; leads immigration tech", round: "On Hold (R1)", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
+      { name: "Charles Green", firm: "Lacked requisite experience", round: "Rejected (R1)", linkedin: "https://www.linkedin.com/in/charles-green-34176592" },
+      { name: "Bermeet Chhokar", firm: "Experienced but not market-leader level", round: "Rejected (R1)" },
+      { name: "Eva-Maria Jucker", firm: "Deloitte \u2014 not senior enough for lead role", round: "Rejected (R1)" },
+      { name: "Mona Chawla", firm: "Withdrew application", round: "Withdrawn", linkedin: "https://www.linkedin.com/in/mona-a-chawla-4433a7/" },
+      { name: "Liam Bezani", firm: "Citibank \u2014 EMEA Immigration head", round: "Withdrawn" },
     ],
   },
   {
@@ -412,10 +421,11 @@ const COUNTRIES = [
     entityStatus: "Accounting slightly behind, catching up",
     entityColor: "#eab308",
     candidates: [
-      { name: "Aine Hartigan", firm: "ex-Newland Chase / Fragomen", round: "On Hold (R2)", linkedin: "https://www.linkedin.com/in/%C3%A1ine-hartigan-6b84094/" },
-      { name: "Jane Pilkington", firm: "", round: "Round 2" },
-      { name: "Aaron Flynn", firm: "Envoy", round: "Sourced", linkedin: "https://www.linkedin.com/in/aaron-flynn-0483505/" },
-      { name: "Declan Groarke", firm: "Lewis Silkin Ireland \u2014 heads Irish immigration (\u00A31M rev; pharma, financial, tech)", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Declan%20Groarke%20Lewis%20Silkin" },
+      { name: "Aine Hartigan", firm: "ex-Newland Chase / Fragomen \u2014 salary agreed \u20AC100-130k", round: "Round 2", linkedin: "https://www.linkedin.com/in/%C3%A1ine-hartigan-6b84094/" },
+      { name: "Jane Pilkington", firm: "Deloitte \u2014 AI-focused; 5.0 interview rating", round: "Round 1", linkedin: "https://www.linkedin.com/in/jane-pilkington-aa849a13/" },
+      { name: "Aaron Flynn", firm: "Envoy \u2014 Ireland (6mo notice)", round: "Round 1", linkedin: "https://www.linkedin.com/in/aaron-flynn-0483505/" },
+      { name: "Declan Groarke", firm: "Lewis Silkin Ireland \u2014 heads Irish immigration (\u00A31M rev; pharma, financial, tech)", round: "Sourced", linkedin: "https://ie.linkedin.com/in/declangroarke" },
+      { name: "Stephen McCrea", firm: "Deloitte \u2014 Google account (~\u00A310M rev)", round: "Withdrawn", linkedin: "https://www.linkedin.com/in/smccreabl/" },
     ],
   },
   {
@@ -425,8 +435,8 @@ const COUNTRIES = [
     entityStatus: "Accounting slightly behind, catching up",
     entityColor: "#eab308",
     candidates: [
-      { name: "Phil Tremblay", firm: "FGI Canada \u2014 Capgemini, Ericsson, CGI, Rio Tinto (CAD 1M+ rev)", round: "Round 2", linkedin: "https://www.linkedin.com/in/philippetremblay/" },
-      { name: "Jesse Root", firm: "Ericsson \u2014 global HR & tech clients", round: "Round 2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Jesse%20Root%20Ericsson%20immigration" },
+      { name: "Phil Tremblay", firm: "FGI Canada \u2014 Capgemini, Ericsson, CGI, Rio Tinto (CAD 1M+ rev)", round: "Round 1", linkedin: "https://www.linkedin.com/in/philippetremblay/" },
+      { name: "Jesse Root", firm: "Ericsson \u2014 global HR & tech clients", round: "Round 1", linkedin: "https://www.linkedin.com/in/jesse-root-ba-ma-rcic-irb-88039838/" },
       { name: "Kristine Dela Cruz", firm: "Deloitte \u2014 partner track, first attorney, CAD 6M rev, 120 clients", round: "Round 1", linkedin: "https://www.linkedin.com/in/kristineannedelacruz/" },
     ],
     extra: "Acquisition opportunity: Greenberg Hameed (2 partners, ex-KPMG)"
@@ -438,7 +448,7 @@ const COUNTRIES = [
     entityStatus: "Selecting accountant",
     entityColor: "#f97316",
     candidates: [
-      { name: "Swarupp Tamhane", firm: "Vialto Partners (Partner)", round: "Sourced \u2014 Interview Fri", star: true, linkedin: "https://www.linkedin.com/search/results/all/?keywords=Swarupp%20Tamhane%20Vialto" },
+      { name: "Swarupp Tamhane", firm: "Vialto Partners (Partner; IN + UK bar)", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Swarupp%20Tamhane%20Vialto" },
     ],
   },
   {
@@ -448,11 +458,8 @@ const COUNTRIES = [
     entityStatus: "Not yet started",
     entityColor: "#ef4444",
     candidates: [
-      { name: "Jo Ann Tabing Adams", firm: "ex-UBS / Credit Suisse", round: "Pending R1", linkedin: "https://sg.linkedin.com/in/joanntabingadams" },
-      { name: "Christina Karl", firm: "est. BAL Singapore & Shanghai", round: "Pending R1", linkedin: "https://www.linkedin.com/in/christinakarl-deloitte/" },
-      { name: "Su Vien Tan", firm: "McKinsey (in-house)", round: "Pending R1", linkedin: "https://www.linkedin.com/in/su-vien-tan-192437103/" },
-      { name: "Regina Tung", firm: "Envoy / CIP", round: "Sourced", linkedin: "https://sg.linkedin.com/in/regina-tung-b9511732" },
-      { name: "Priscilla Tham", firm: "ex-Sumitomo Mitsui Banking", round: "Sourced", linkedin: "https://sg.linkedin.com/in/priscilla-tham-0ab6b12" },
+      { name: "Priscilla Tham", firm: "ex-Sumitomo Mitsui Banking \u2014 establishing Manifest Singapore presence", round: "Round 1", linkedin: "https://sg.linkedin.com/in/priscilla-tham-0ab6b12" },
+      { name: "Jo Ann Tabing Adams", firm: "ex-UBS / Credit Suisse (SGD 450k rev); AMD (SGD 250k rev)", round: "Round 1", linkedin: "https://sg.linkedin.com/in/joanntabingadams" },
     ],
   },
   {
@@ -463,11 +470,13 @@ const COUNTRIES = [
     entityColor: "#eab308",
     candidates: [
       { name: "Alicia Powyer", firm: "Deloitte", round: "Round 2", linkedin: "https://www.linkedin.com/in/alicia-powyer-1a36b731/" },
-      { name: "Angel Chambers", firm: "Deloitte (partner track)", round: "Round 2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Angel%20Chambers%20Deloitte%20immigration%20Australia" },
-      { name: "Mark Welch", firm: "Scottish/Australian client exp \u2014 oil & gas, engineering, IT", round: "Round 1", linkedin: "https://uk.linkedin.com/in/mark-welch-712a3713" },
-      { name: "Belinda Man", firm: "Own firm", history: ["Deloitte (partner track)"], round: "Sourced", linkedin: "https://au.linkedin.com/in/belinda-man-1b19b046" },
-      { name: "Kate Vircoe", firm: "Newland Chase", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kate%20Vircoe%20Newland%20Chase%20Australia" },
-      { name: "Polina Oussova", firm: "BAL Sydney", history: ["Deloitte (10+ yrs)"], round: "Sourced", linkedin: "https://www.linkedin.com/in/polina-oussova-69ba6621/" },
+      { name: "Mark Wright", firm: "Fragomen / KPMG / PwC (Partner; prev AUD 457k)", round: "Round 2", linkedin: "https://www.linkedin.com/in/mark-wright-6b52106/" },
+      { name: "Maija Morris", firm: "ex-Credit Suisse / Deloitte / Fintecture \u2014 INSEAD MBA + Wharton; \u20AC5M ARR", round: "Round 1" },
+      { name: "Angel Chambers", firm: "Deloitte (partner track; Melbourne)", round: "Round 1", linkedin: "https://www.linkedin.com/in/angel-chambers/" },
+      { name: "Polina Oussova", firm: "Deloitte (10+ yrs; grew BAL Sydney)", round: "Round 1", linkedin: "https://www.linkedin.com/in/polina-oussova-69ba6621/" },
+      { name: "Belinda Man", firm: "Own firm", history: ["Deloitte (partner track)"], round: "Round 1", linkedin: "https://au.linkedin.com/in/belinda-man-1b19b046" },
+      { name: "Mark Welch", firm: "Scottish/Australian exp \u2014 oil & gas, engineering, IT, tv/film", round: "Round 1", linkedin: "https://uk.linkedin.com/in/mark-welch-712a3713" },
+      { name: "Kate Vircoe", firm: "Newland Chase (ref'd by Ray Rackham)", round: "Sourced", linkedin: "https://www.linkedin.com/in/kate-vircoe-917b479a/" },
     ],
     extra: "Acquisition opportunity: 2 candidates with 7-person firm"
   },
@@ -492,9 +501,10 @@ const COUNTRIES = [
 ];
 
 function getRoundClass(round) {
+  if (round.includes("Rejected") || round.includes("Withdrawn")) return "round-rejected";
   if (round.includes("Final")) return "round-final";
   if (round.includes("Round 2") || round.includes("R2")) return "round-r2";
-  if (round.includes("Round 1")) return "round-r1";
+  if (round.includes("Round 1") || round.includes("(R1)")) return "round-r1";
   if (round.includes("Hold")) return "round-hold";
   return "round-sourced";
 }
@@ -534,6 +544,9 @@ function getSizeClass(count) {
 }
 
 function matchesFilter(round, filter) {
+  const rejected = round.includes("Rejected") || round.includes("Withdrawn");
+  if (filter === "rejected") return rejected;
+  if (rejected) return false; // Rejected/Withdrawn candidates don't count in active-pipeline filters
   if (filter === "final") return round.includes("Final");
   if (filter === "r2") return round.includes("Round 2") || round.includes("R2");
   if (filter === "r1") return (round.includes("Round 1") || round.includes("(R1)")) && !round.includes("R2");
@@ -621,6 +634,7 @@ function openDrilldown(filter) {
       { id: 'r1', label: 'Round 1' },
       { id: 'sourced', label: 'Sourced' },
       { id: 'hold', label: 'On Hold' },
+      { id: 'rejected', label: 'Rejected' },
     ];
 
     const titleCount = filtered.length + (filtered.length === all.length ? '' : ' / ' + all.length);
@@ -656,7 +670,7 @@ function openDrilldown(filter) {
     html += '</div></div>';
 
   } else {
-    const labels = { final: "Final Discussions", r2: "Round 2", r1: "Round 1", sourced: "Sourced / Early" };
+    const labels = { final: "Final Discussions", r2: "Round 2", r1: "Round 1", sourced: "Sourced / Early", rejected: "Rejected / Withdrawn" };
     const filtered = [];
     COUNTRIES.forEach(c => c.candidates.forEach(cand => {
       if (matchesFilter(cand.round, filter)) filtered.push({ ...cand, market: c.flag + ' ' + c.city });
