@@ -346,11 +346,11 @@
 
   <div class="stats-bar" id="stats-bar">
     <div class="stat-card" data-filter="markets"><div class="stat-value" id="stat-markets">8</div><div class="stat-label">Markets</div></div>
-    <div class="stat-card" data-filter="candidates"><div class="stat-value">24</div><div class="stat-label">Candidates</div></div>
-    <div class="stat-card" data-filter="final"><div class="stat-value green">1</div><div class="stat-label">Final Discussions</div></div>
-    <div class="stat-card" data-filter="r2"><div class="stat-value blue">5</div><div class="stat-label">Round 2</div></div>
-    <div class="stat-card" data-filter="r1"><div class="stat-value purple">9</div><div class="stat-label">Round 1</div></div>
-    <div class="stat-card" data-filter="sourced"><div class="stat-value amber">10</div><div class="stat-label">Sourced / Early</div></div>
+    <div class="stat-card" data-filter="candidates"><div class="stat-value">26</div><div class="stat-label">Candidates</div></div>
+    <div class="stat-card" data-filter="final"><div class="stat-value green">0</div><div class="stat-label">Final Discussions</div></div>
+    <div class="stat-card" data-filter="r2"><div class="stat-value blue">9</div><div class="stat-label">Round 2</div></div>
+    <div class="stat-card" data-filter="r1"><div class="stat-value purple">6</div><div class="stat-label">Round 1</div></div>
+    <div class="stat-card" data-filter="sourced"><div class="stat-value amber">11</div><div class="stat-label">Sourced / Early</div></div>
   </div>
 
   <div class="main-content" id="main-content">
@@ -385,7 +385,7 @@
       <span class="legend-item"><span class="legend-dot" style="background:#f97316"></span> Early Stage</span>
       <span class="legend-item"><span class="legend-dot" style="background:#ef4444"></span> Not Started</span>
     </div>
-    <div class="footer">Data sourced from Slack, recruiter emails (JAM Talent), and internal comms — April 18, 2026</div>
+    <div class="footer">Data sourced from Slack, recruiter emails (JAM Talent), and internal comms — April 19, 2026</div>
   </div>
 </div>
 
@@ -398,11 +398,12 @@ const COUNTRIES = [
     entityStatus: "Entity setup & accounting in progress",
     entityColor: "#22c55e",
     candidates: [
-      { name: "Antonio Lam", firm: "Envoy / Newland Chase", round: "Final Discussions", star: true, linkedin: "https://www.linkedin.com/in/antonio-lam/" },
-      { name: "Kasia Kingsmill", firm: "Brecher\u2019s", history: ["Fragomen"], round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
+      { name: "Antonio Lam", firm: "Clarus Global", round: "Round 2", linkedin: "https://www.linkedin.com/in/antonio-lam/" },
+      { name: "Kasia Kingsmill", firm: "Brecher\u2019s (Bloomberg, Nvidia, Accenture)", history: ["Fragomen (15 yrs)"], round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kasia%20Kingsmill%20immigration" },
+      { name: "Ray Rackham", firm: "", round: "On Hold (R2)" },
       { name: "Emma Holmes", firm: "Direct", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Emma%20Holmes%20immigration%20London" },
-      { name: "Zohra Hussain", firm: "Fragomen", round: "On Hold", linkedin: "https://www.linkedin.com/in/zohra-hussain-00493414b/" },
-      { name: "Rizwana Quazi", firm: "Deloitte", round: "On Hold", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
+      { name: "Zohra Hussain", firm: "Fragomen \u2014 global lead (Raytheon, LinkedIn, FIS)", round: "On Hold (R1)", linkedin: "https://www.linkedin.com/in/zohra-hussain-00493414b/" },
+      { name: "Rizwana Quazi", firm: "Deloitte \u2014 20+ yrs, leads immigration tech", round: "On Hold (R1)", linkedin: "https://uk.linkedin.com/in/rizwana-quazi-02137075" },
     ],
   },
   {
@@ -413,8 +414,9 @@ const COUNTRIES = [
     entityColor: "#eab308",
     candidates: [
       { name: "Aine Hartigan", firm: "ex-Newland Chase / Fragomen", round: "On Hold (R2)", linkedin: "https://www.linkedin.com/in/%C3%A1ine-hartigan-6b84094/" },
-      { name: "Aaron Flynn", firm: "Envoy", round: "Round 2", linkedin: "https://www.linkedin.com/in/aaron-flynn-0483505/" },
-      { name: "Declan Groarke", firm: "Lewis Silkin", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Declan%20Groarke%20Lewis%20Silkin" },
+      { name: "Jane Pilkington", firm: "", round: "Round 2" },
+      { name: "Aaron Flynn", firm: "Envoy", round: "Sourced", linkedin: "https://www.linkedin.com/in/aaron-flynn-0483505/" },
+      { name: "Declan Groarke", firm: "Lewis Silkin Ireland \u2014 heads Irish immigration (\u00A31M rev; pharma, financial, tech)", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Declan%20Groarke%20Lewis%20Silkin" },
     ],
   },
   {
@@ -424,9 +426,9 @@ const COUNTRIES = [
     entityStatus: "Accounting slightly behind, catching up",
     entityColor: "#eab308",
     candidates: [
-      { name: "Jesse Root", firm: "Ericsson", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Jesse%20Root%20Ericsson%20immigration" },
-      { name: "Phil Tremblay", firm: "FGI Canada (CAD 1M+ rev)", round: "Round 1", linkedin: "https://www.linkedin.com/in/philippetremblay/" },
-      { name: "Kristine Dela Cruz", firm: "Deloitte (CAD 6M rev)", round: "Round 1", linkedin: "https://www.linkedin.com/in/kristineannedelacruz/" },
+      { name: "Phil Tremblay", firm: "FGI Canada \u2014 Capgemini, Ericsson, CGI, Rio Tinto (CAD 1M+ rev)", round: "Round 2", linkedin: "https://www.linkedin.com/in/philippetremblay/" },
+      { name: "Jesse Root", firm: "Ericsson \u2014 global HR & tech clients", round: "Round 2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Jesse%20Root%20Ericsson%20immigration" },
+      { name: "Kristine Dela Cruz", firm: "Deloitte \u2014 partner track, first attorney, CAD 6M rev, 120 clients", round: "Round 1", linkedin: "https://www.linkedin.com/in/kristineannedelacruz/" },
     ],
     extra: "Acquisition opportunity: Greenberg Hameed (2 partners, ex-KPMG)"
   },
@@ -462,12 +464,12 @@ const COUNTRIES = [
     entityColor: "#eab308",
     candidates: [
       { name: "Alicia Powyer", firm: "Deloitte", round: "Round 2", linkedin: "https://www.linkedin.com/in/alicia-powyer-1a36b731/" },
-      { name: "Angel Chambers", firm: "Deloitte (partner track)", round: "Round 1 \u2192 R2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Angel%20Chambers%20Deloitte%20immigration%20Australia" },
-      { name: "Maija Morris", firm: "ex-Credit Suisse / Deloitte", round: "Round 1", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Maija%20Morris%20immigration%20Australia" },
-      { name: "Mark Welch", firm: "Serving AU from Scotland", round: "Round 1", linkedin: "https://uk.linkedin.com/in/mark-welch-712a3713" },
-      { name: "Polina Oussova", firm: "ex-Deloitte / BAL", round: "Round 2", linkedin: "https://www.linkedin.com/in/polina-oussova-69ba6621/" },
-      { name: "Belinda Man", firm: "ex-Deloitte (own firm)", round: "Round 2", linkedin: "https://au.linkedin.com/in/belinda-man-1b19b046" },
+      { name: "Mark Wright", firm: "Immigration Partner \u2014 PwC / Fragomen / Greenberg / Deloitte", round: "Round 2" },
+      { name: "Angel Chambers", firm: "Deloitte (partner track)", round: "Round 2", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Angel%20Chambers%20Deloitte%20immigration%20Australia" },
+      { name: "Mark Welch", firm: "Scottish/Australian client exp \u2014 oil & gas, engineering, IT", round: "Round 1", linkedin: "https://uk.linkedin.com/in/mark-welch-712a3713" },
+      { name: "Belinda Man", firm: "Own firm", history: ["Deloitte (partner track)"], round: "Sourced", linkedin: "https://au.linkedin.com/in/belinda-man-1b19b046" },
       { name: "Kate Vircoe", firm: "Newland Chase", round: "Sourced", linkedin: "https://www.linkedin.com/search/results/all/?keywords=Kate%20Vircoe%20Newland%20Chase%20Australia" },
+      { name: "Polina Oussova", firm: "BAL Sydney", history: ["Deloitte (10+ yrs)"], round: "Sourced", linkedin: "https://www.linkedin.com/in/polina-oussova-69ba6621/" },
     ],
     extra: "Acquisition opportunity: 2 candidates with 7-person firm"
   },
@@ -536,8 +538,8 @@ function getSizeClass(count) {
 function matchesFilter(round, filter) {
   if (filter === "final") return round.includes("Final");
   if (filter === "r2") return round.includes("Round 2") || round.includes("R2");
-  if (filter === "r1") return round.includes("Round 1") && !round.includes("R2");
-  if (filter === "sourced") return !round.includes("Final") && !round.includes("Round 2") && !round.includes("R2") && !round.includes("Round 1");
+  if (filter === "r1") return (round.includes("Round 1") || round.includes("(R1)")) && !round.includes("R2");
+  if (filter === "sourced") return !round.includes("Final") && !round.includes("Round 2") && !round.includes("R2") && !round.includes("Round 1") && !round.includes("(R1)");
   return true;
 }
 
@@ -606,11 +608,7 @@ function openDrilldown(filter) {
     const matchRound = (round, r) => {
       if (r === 'all') return true;
       if (r === 'hold') return round.includes('Hold');
-      if (r === 'final') return round.includes('Final');
-      if (r === 'r2') return (round.includes('Round 2') || round.includes('R2')) && !round.includes('Hold');
-      if (r === 'r1') return round.includes('Round 1') && !round.includes('R2') && !round.includes('Hold');
-      if (r === 'sourced') return !round.includes('Final') && !round.includes('Round 2') && !round.includes('R2') && !round.includes('Round 1') && !round.includes('Hold');
-      return true;
+      return matchesFilter(round, r);
     };
 
     const filtered = all.filter(cand =>
