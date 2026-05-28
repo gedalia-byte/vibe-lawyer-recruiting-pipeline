@@ -232,8 +232,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <div class="kpi-sub">4 leads &middot; 6 strong &middot; 8 pipeline</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-value" style="color:#fbbf24;">7</div>
-      <div class="kpi-label">Discussion Items</div>
+      <div class="kpi-value" style="color:#fbbf24;">6</div>
+      <div class="kpi-label">Key Decisions</div>
       <div class="kpi-sub">Click any item for deep dive</div>
     </div>
     <div class="kpi-card">
@@ -307,56 +307,49 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <!-- Key Decisions -->
   <div class="section-header">
     <span class="icon">&#9889;</span>
-    <h2>Discussion Items</h2>
+    <h2>Key Decisions</h2>
     <button class="see-more" onclick="goDeepDive('decisions')">Full analysis &rarr;</button>
   </div>
   <div class="decision-list">
-    <div class="decision-item" onclick="goDeepDive('strategy')">
-      <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
-      <div class="decision-text">
-        <strong>1. Hiring Strategy &mdash; Dubai / SG / AU</strong>
-        <span>Three interconnected hires &mdash; need to decide together. Deep dive &rarr;</span>
-      </div>
-    </div>
-    <div class="decision-item" onclick="goDeepDive('uk-hiring')">
-      <div class="decision-dot" style="background:#f87171;box-shadow:0 0 6px #f87171;"></div>
-      <div class="decision-text">
-        <strong>2. UK Lead Hire</strong>
-        <span>SRA blocked until we name a lead lawyer. Deep dive &rarr;</span>
-      </div>
-    </div>
     <div class="decision-item" onclick="goDeepDive('jack-visit')">
       <div class="decision-dot" style="background:#a78bfa;box-shadow:0 0 6px #a78bfa;"></div>
       <div class="decision-text">
-        <strong>3. Jack Kim NYC Visit</strong>
+        <strong>1. Jack Kim NYC Visit</strong>
         <span>Pick dates, align on equity negotiation strategy. Deep dive &rarr;</span>
-      </div>
-    </div>
-    <div class="decision-item" onclick="goDeepDive('decisions')">
-      <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
-      <div class="decision-text">
-        <strong>4. Global GM Needed</strong>
-        <span>Dedicated senior GM alongside Sophie &mdash; can&rsquo;t hand off to Matt. Deep dive &rarr;</span>
-      </div>
-    </div>
-    <div class="decision-item" onclick="goDeepDive('entities')">
-      <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
-      <div class="decision-text">
-        <strong>5. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</strong>
-        <span>Initial ask: approve board resolution + US doc attestation to kick off formation. Deep dive &rarr;</span>
       </div>
     </div>
     <div class="decision-item" onclick="goDeepDive('followups')">
       <div class="decision-dot" style="background:#58a6ff;box-shadow:0 0 6px #58a6ff;"></div>
       <div class="decision-text">
-        <strong>6. Candidate Follow-Ups (Next Week)</strong>
+        <strong>2. Candidate Follow-Ups</strong>
         <span>Kate, Irin, Aaron &mdash; discuss what each call should cover. Deep dive &rarr;</span>
       </div>
     </div>
-    <div class="decision-item" onclick="goDeepDive('decisions')">
+    <div class="decision-item" onclick="goDeepDive('dubai')">
+      <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
+      <div class="decision-text">
+        <strong>3. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</strong>
+        <span>Initial ask: approve board resolution + US doc attestation. Deep dive &rarr;</span>
+      </div>
+    </div>
+    <div class="decision-item" onclick="goDeepDive('strategy')">
+      <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
+      <div class="decision-text">
+        <strong>4. Hiring Strategy</strong>
+        <span>All markets &mdash; Dubai/SG/AU hires + UK lead + M&amp;A outlook. Deep dive &rarr;</span>
+      </div>
+    </div>
+    <div class="decision-item" onclick="goDeepDive('gm')">
+      <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
+      <div class="decision-text">
+        <strong>5. Global GM</strong>
+        <span>Likely Sophie, but could be Gedalia. Start thinking about the role. Deep dive &rarr;</span>
+      </div>
+    </div>
+    <div class="decision-item" onclick="goDeepDive('latam')">
       <div class="decision-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div>
       <div class="decision-text">
-        <strong>7. LATAM Research</strong>
+        <strong>6. LATAM Launch</strong>
         <span>Mexico as entry point. Begin formal market research. Deep dive &rarr;</span>
       </div>
     </div>
@@ -650,13 +643,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <button class="back-btn" onclick="switchTab('overview')">&larr; Back to Overview</button>
 
   <div class="deep-nav">
-    <button class="deep-nav-btn active" onclick="showDD('decisions')">Discussion Items</button>
-    <button class="deep-nav-btn" onclick="showDD('strategy')">Hiring Strategy</button>
-    <button class="deep-nav-btn" onclick="showDD('mna')">M&amp;A</button>
-    <button class="deep-nav-btn" onclick="showDD('uk-hiring')">UK Hiring</button>
     <button class="deep-nav-btn" onclick="showDD('entities')">Entity Setup</button>
-    <button class="deep-nav-btn" onclick="showDD('jack-visit')">Jack Kim Visit</button>
-    <button class="deep-nav-btn" onclick="showDD('followups')">Follow-Ups</button>
+    <button class="deep-nav-btn active" onclick="showDD('decisions')">Key Decisions</button>
   </div>
 
   <!-- Entity Setup Details -->
@@ -726,243 +714,243 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     </div>
   </div>
 
-  <!-- UK Hiring -->
-  <div id="dd-uk-hiring" class="deep-section">
-    <h2>UK Hiring &mdash; Critical Path Analysis</h2>
-    <div class="divider"></div>
-    <p><strong>Core Problem:</strong> SRA application requires a named lead lawyer to proceed. Without this hire, Manifest cannot get professional indemnity insurance, cannot register, and cannot operate in the UK.</p>
-    <h3>Active Candidates</h3>
-    <div class="cand-card"><div class="cand-name">Andrew Barnett <span class="st st-y">In Process</span></div><div class="cand-meta">Ex-Fragomen &middot; 12 years UK immigration</div></div>
-    <div class="cand-card"><div class="cand-name">Yunelsi Wray <span class="st st-y">In Process</span></div><div class="cand-meta">UK Practice Candidate</div></div>
-    <div class="cand-card"><div class="cand-name">Antonio Lam <span class="st st-b">Still an Option</span></div><div class="cand-meta">Senior Immigration Lawyer</div></div>
-    <div class="cand-card"><div class="cand-name">Carine Elliott <span class="st st-b">Pipeline</span></div><div class="cand-meta">Ex-Fragomen &middot; Junior</div></div>
-    <div class="cand-card"><div class="cand-name">Camilla Kellerman <span class="st st-b">Pipeline</span></div><div class="cand-meta">Junior option</div></div>
-    <h3>Backup Strategy</h3>
-    <p><strong>Co-counsel:</strong> Lynn McCloghry (Eversage Associates) &mdash; interim coverage while permanent hire is finalized.</p>
-  </div>
-
-  <!-- Hiring Strategy -->
-  <div id="dd-strategy" class="deep-section">
-    <h2>Hiring Strategy &mdash; 3 Options</h2>
-    <div class="divider"></div>
-    <div class="strategy-grid">
-      <div class="strategy-card opt-fast">
-        <div class="strategy-label" style="color:#34d399;">Option 1</div>
-        <div class="strategy-title" style="color:#34d399;">Move Fast in All Regions</div>
-        <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; Singapore + &#127462;&#127482; Australia</strong>Offer Sana (Dubai), Irin (Singapore), Martin (Australia) &mdash; move on all three together</div>
-        <div class="strategy-region"><strong>&#127468;&#127463; UK</strong>Offer to Andrew Barnett, Yunelsi, or another more junior person we already have</div>
-        <div class="strategy-region"><strong>&#127464;&#127462; Canada</strong>Open to a junior lawyer, but nobody currently in pipeline; co-counsel is in place</div>
-      </div>
-      <div class="strategy-card opt-balanced">
-        <div class="strategy-label" style="color:#fbbf24;">Option 2</div>
-        <div class="strategy-title" style="color:#fbbf24;">Steady Push</div>
-        <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; Singapore + &#127462;&#127482; Australia</strong>Offer Sana (Dubai) &amp; Irin (Singapore), continue negotiating Kate Vircoe (Australia) &mdash; Kate wants APAC leadership, need to resolve overlap</div>
-        <div class="strategy-region"><strong>&#127468;&#127463; UK</strong>Keep looking for the senior lawyer, ideally Antonio; do not rush into hiring someone just to kick off SRA</div>
-        <div class="strategy-region"><strong>&#127464;&#127462; Canada</strong>Continue searching for a trophy lawyer</div>
-      </div>
-      <div class="strategy-card opt-perfect">
-        <div class="strategy-label" style="color:#60a5fa;">Option 3</div>
-        <div class="strategy-title" style="color:#60a5fa;">Perfectionist</div>
-        <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; Singapore + &#127462;&#127482; Australia</strong>Go slow with all three &mdash; find someone better for Australia, keep Irin &amp; Sana warm</div>
-        <div class="strategy-region"><strong>&#127468;&#127463; UK / &#127464;&#127462; Canada</strong>Continue search</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- M&A -->
-  <div id="dd-mna" class="deep-section">
-    <h2>M&amp;A</h2>
-    <div class="divider"></div>
-    <div class="mna-highlight">
-      <h3>M&A Is Not the First Step</h3>
-      <p style="color:#fbbf24;opacity:.8;font-size:13px;margin-bottom:16px">All deals on hold until practice leads are in place.</p>
-      <div class="mna-deal">
-        <div class="mna-deal-title">Toronto Immigration Firm <span class="st st-y">Working Through with Monica</span></div>
-        <div class="detail-grid" style="margin-top:8px;font-size:12px">
-          <span class="detail-label">Revenue</span><span>Plateau (flat 2023-2024)</span>
-          <span class="detail-label">Adj. EBITDA</span><span>CA$1.55M</span>
-          <span class="detail-label">Valuation</span><span>CA$4.8M &ndash; CA$9.3M range</span>
-          <span class="detail-label">Risks</span><span>~67% client concentration in 3 Indian IT outsourcers</span>
-        </div>
-      </div>
-      <div class="mna-deal">
-        <div class="mna-deal-title">Dublin/UK Firm <span class="st st-b">Fallback</span></div>
-        <div style="font-size:12px;color:#8b949e;margin-top:4px">One-person firm in both markets. Acquisition fallback if hiring stalls.</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Decisions -->
+  <!-- Key Decisions -->
   <div id="dd-decisions" class="deep-section active">
-    <h2>Discussion Items</h2>
+    <h2>Key Decisions</h2>
     <div class="divider"></div>
-    <p style="font-size:13px;color:#8b949e;margin-bottom:16px;">Click any item to see the full deep dive.</p>
 
-    <div class="decision-list">
-      <div class="decision-item" onclick="showDD('strategy')">
-        <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
-        <div class="decision-text">
-          <strong>1. Hiring Strategy &mdash; Dubai / SG / AU</strong>
-          <span>Three interconnected hires &mdash; Sana, Irin, Kate vs Martin. APAC scope conflict. See 3 options &rarr;</span>
-        </div>
-      </div>
-      <div class="decision-item" onclick="showDD('uk-hiring')">
-        <div class="decision-dot" style="background:#f87171;box-shadow:0 0 6px #f87171;"></div>
-        <div class="decision-text">
-          <strong>2. UK Lead Hire</strong>
-          <span>SRA blocked until we name a lead lawyer. No clear #1 yet. See candidates &rarr;</span>
-        </div>
-      </div>
-      <div class="decision-item" onclick="showDD('jack-visit')">
+    <!-- TOC -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:32px;">
+      <div class="decision-item" onclick="document.getElementById('di-jack-visit').scrollIntoView({behavior:'smooth',block:'start'})">
         <div class="decision-dot" style="background:#a78bfa;box-shadow:0 0 6px #a78bfa;"></div>
-        <div class="decision-text">
-          <strong>3. Jack Kim NYC Visit</strong>
-          <span>Pick dates (June 4&ndash;5 or 14&ndash;15), align on equity negotiation. 0.02% vs 0.5% gap. See details &rarr;</span>
-        </div>
+        <div class="decision-text"><strong>1. Jack Kim NYC Visit</strong><span>Pick dates, equity negotiation</span></div>
       </div>
-      <div class="decision-item" style="cursor:default;">
-        <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
-        <div class="decision-text">
-          <strong>4. Global GM Needed</strong>
-          <span>Global needs a dedicated senior GM alongside Sophie. Different business, different complexity &mdash; can&rsquo;t hand off to Matt&rsquo;s team.</span>
-        </div>
-      </div>
-      <div class="decision-item" onclick="showDD('entities')">
-        <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
-        <div class="decision-text">
-          <strong>5. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</strong>
-          <span>Initial ask: approve board resolution so Eric can begin US doc attestation. Not full entity cost. See entity details &rarr;</span>
-        </div>
-      </div>
-      <div class="decision-item" onclick="showDD('followups')">
+      <div class="decision-item" onclick="document.getElementById('di-followups').scrollIntoView({behavior:'smooth',block:'start'})">
         <div class="decision-dot" style="background:#58a6ff;box-shadow:0 0 6px #58a6ff;"></div>
-        <div class="decision-text">
-          <strong>6. Candidate Follow-Ups (Next Week)</strong>
-          <span>Irin (SG), Kate (AU), Aaron (IE) &mdash; what each call should cover. See prep &rarr;</span>
-        </div>
+        <div class="decision-text"><strong>2. Candidate Follow-Ups</strong><span>Irin, Kate, Aaron &mdash; next week</span></div>
       </div>
-      <div class="decision-item" style="cursor:default;">
+      <div class="decision-item" onclick="document.getElementById('di-dubai').scrollIntoView({behavior:'smooth',block:'start'})">
+        <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
+        <div class="decision-text"><strong>3. Dubai Attestation</strong><span>Board resolution + $5K</span></div>
+      </div>
+      <div class="decision-item" onclick="document.getElementById('di-strategy').scrollIntoView({behavior:'smooth',block:'start'})">
+        <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
+        <div class="decision-text"><strong>4. Hiring Strategy</strong><span>All markets incl. UK &amp; M&amp;A</span></div>
+      </div>
+      <div class="decision-item" onclick="document.getElementById('di-gm').scrollIntoView({behavior:'smooth',block:'start'})">
+        <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
+        <div class="decision-text"><strong>5. Global GM</strong><span>Dedicated leadership needed</span></div>
+      </div>
+      <div class="decision-item" onclick="document.getElementById('di-latam').scrollIntoView({behavior:'smooth',block:'start'})">
         <div class="decision-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div>
-        <div class="decision-text">
-          <strong>7. LATAM Research</strong>
-          <span>Mexico as entry point. Begin formal market research &mdash; sizing, legal requirements, regulatory landscape.</span>
+        <div class="decision-text"><strong>6. LATAM Launch</strong><span>Mexico entry point</span></div>
+      </div>
+    </div>
+
+    <!-- ===== 1. JACK KIM VISIT ===== -->
+    <div id="di-jack-visit" style="scroll-margin-top:120px;margin-bottom:40px;">
+      <h2 style="display:flex;align-items:center;gap:10px;">&#127464;&#127462; 1. Jack Kim &mdash; NYC Visit</h2>
+      <div class="divider"></div>
+      <p style="color:#34d399;font-weight:600;margin-bottom:16px;">Two proposed dates &mdash; goal is to close.</p>
+
+      <div class="strategy-grid" style="grid-template-columns:1fr 1fr;margin-top:0;">
+        <div class="strategy-card opt-fast">
+          <div class="strategy-label" style="color:#34d399;">Option A</div>
+          <div class="strategy-title" style="color:#34d399;">June 4&ndash;5</div>
+          <div class="strategy-region"><strong>Thursday, June 4</strong>Jack arrives Thursday night &rarr; dinner</div>
+          <div class="strategy-region"><strong>Friday, June 5</strong>Half-day meetings</div>
+        </div>
+        <div class="strategy-card opt-balanced">
+          <div class="strategy-label" style="color:#fbbf24;">Option B</div>
+          <div class="strategy-title" style="color:#fbbf24;">June 14&ndash;15</div>
+          <div class="strategy-region"><strong>Sunday, June 14</strong>Jack arrives Sunday night &rarr; dinner</div>
+          <div class="strategy-region"><strong>Monday, June 15</strong>Half-day meetings</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:24px;">Proposed Schedule</h3>
+      <div style="background:#0f1419;border:1px solid rgba(99,110,123,0.3);border-radius:10px;padding:16px;margin-top:8px;">
+        <div style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:13px;">
+          <span style="color:#fbbf24;font-weight:700;">Evening</span>
+          <span><strong>Dinner with Dan &amp; Matt</strong> (or Lily &amp; Gedalia). Light negotiation &mdash; set the tone, build rapport, start discussing terms.</span>
+          <span style="color:#34d399;font-weight:700;">Morning</span>
+          <span><strong>Team Meetings:</strong> Nicole / Haesung, the PM, Head of AI. Give Jack a feel for the team and the product.</span>
+          <span style="color:#58a6ff;font-weight:700;">Afternoon</span>
+          <span><strong>Long session with Dan</strong> &mdash; negotiate and close. Main event. Come in with clear terms from dinner the night before.</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">Negotiation Status</h3>
+      <div style="background:#0f1419;border:1px solid rgba(99,110,123,0.3);border-radius:10px;padding:16px;margin-top:8px;">
+        <div style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:13px;">
+          <span style="color:#8b949e;font-weight:700;">May 18</span>
+          <span>Gedalia sent comp slides to Jack.</span>
+          <span style="color:#f87171;font-weight:700;">May 21</span>
+          <span><strong>Jack pushed back hard on equity.</strong> $720K&ndash;$1.2M cash differential favoring Fragomen. 0.02% equity doesn&rsquo;t price in risk. Floor is 0.5%. Said &ldquo;you may want to start going in another direction.&rdquo;</span>
+          <span style="color:#34d399;font-weight:700;">May 21</span>
+          <span><strong>Gedalia responded:</strong> Corrected valuation target to $20B. 0.5% = $3.75M&ndash;$6M in options (23x over $162K offer). Asked for formal counteroffer.</span>
+          <span style="color:#58a6ff;font-weight:700;">May 24</span>
+          <span>Pivoted to in-person: invited Jack to NYC.</span>
+          <span style="color:#34d399;font-weight:700;">May 25</span>
+          <span>Jack responded positively &mdash; agreed to discuss logistics.</span>
+        </div>
+      </div>
+
+      <h3 style="margin-top:20px;">Key Gaps to Close</h3>
+      <div style="background:#0f1419;border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:16px;margin-top:8px;">
+        <div style="font-size:13px;color:#c9d1d9;">
+          <div style="margin-bottom:10px;"><span style="color:#f87171;font-weight:700;">Equity gap:</span> 0.02% offered vs 0.5% floor (25x apart). Jack originally asked for 1%.</div>
+          <div style="margin-bottom:10px;"><span style="color:#fbbf24;font-weight:700;">Cash gap:</span> $720K&ndash;$1.2M less cash over 5 years vs Fragomen.</div>
+          <div style="margin-bottom:10px;"><span style="color:#58a6ff;font-weight:700;">Valuation framing:</span> Jack modeled at $5B with 50% dilution. Gedalia corrected to $20B.</div>
+          <div><span style="color:#34d399;font-weight:700;">Visit strategy:</span> Get Jack in the room with Dan, the team, and the product. Email alone won&rsquo;t close this.</div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Candidate Follow-Ups -->
-  <div id="dd-followups" class="deep-section">
-    <h2>Candidate Follow-Ups &mdash; Next Week</h2>
-    <div class="divider"></div>
-    <div style="background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:14px 16px;margin-bottom:16px;">
-      <div style="font-size:13px;color:#c9d1d9;"><span style="color:#58a6ff;font-weight:700;">Pipeline Goal:</span> 3&ndash;4 finalists in every country before making a final hire decision. These follow-ups deepen our top candidates while we continue sourcing pipeline in parallel.</div>
-    </div>
+    <!-- ===== 2. CANDIDATE FOLLOW-UPS ===== -->
+    <div id="di-followups" style="scroll-margin-top:120px;margin-bottom:40px;">
+      <h2>2. Candidate Follow-Ups &mdash; Next Week</h2>
+      <div class="divider"></div>
+      <div style="background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:14px 16px;margin-bottom:16px;">
+        <div style="font-size:13px;color:#c9d1d9;"><span style="color:#58a6ff;font-weight:700;">Pipeline Goal:</span> 3&ndash;4 finalists per country before final hire. These follow-ups deepen our top candidates while we source pipeline in parallel.</div>
+      </div>
 
-    <!-- Irin -->
-    <div style="background:#0f1419;border:1px solid rgba(96,165,250,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127480;&#127468; Irin Ou &mdash; Singapore <span class="st st-g">2nd Round Done (May 25)</span></div>
-      <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> 2nd round with Dan completed May 25. Director of Immigration at Vialto Partners (spun out of PwC) &mdash; 4+ years at Director level, managing corporate immigration across 150+ countries. Understands AI-enabled immigration tools (Vialto has VialtoExplore).</p>
-        <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
-        <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#58a6ff;">&#9679;</span><span>Comp expectations &mdash; Director-level at a major global firm means high baseline. Confirm equity is on the table.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span>Corporate client list &mdash; hard filter. Need names, not categories. Would any follow her?</span>
-          <span style="color:#58a6ff;">&#9679;</span><span>APAC scope clarification &mdash; her role vs Kate Vircoe&rsquo;s APAC leadership ambitions. Must resolve before either offer goes out.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span>Singapore entity timeline &mdash; share where incorporation stands and realistic launch date.</span>
+      <!-- Irin -->
+      <div style="background:#0f1419;border:1px solid rgba(96,165,250,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127480;&#127468; Irin Ou &mdash; Singapore <span class="st st-g">2nd Round Done (May 25)</span></div>
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p><strong>Where we are:</strong> 2nd round with Dan completed May 25. Director of Immigration at Vialto Partners (spun out of PwC) &mdash; 4+ years at Director level, managing corporate immigration across 150+ countries.</p>
+          <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
+          <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
+            <span style="color:#58a6ff;">&#9679;</span><span>Comp expectations &mdash; Director-level at a major global firm means high baseline.</span>
+            <span style="color:#58a6ff;">&#9679;</span><span>Corporate client list &mdash; need names, not categories. Would any follow her?</span>
+            <span style="color:#58a6ff;">&#9679;</span><span>APAC scope &mdash; her role vs Kate Vircoe&rsquo;s APAC leadership ambitions. Must resolve before either offer.</span>
+            <span style="color:#58a6ff;">&#9679;</span><span>Singapore entity timeline &mdash; share incorporation status and realistic launch date.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kate -->
+      <div style="background:#0f1419;border:1px solid rgba(52,211,153,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127462;&#127482; Kate Vircoe &mdash; Australia <span class="st st-g">Dan Call Done (May 19)</span></div>
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p><strong>Where we are:</strong> Dan call completed May 19. MD of Newland Chase ANZ &mdash; runs 35+ across Sydney, Melbourne, Brisbane. 15+ years corporate immigration. Strong interest signals.</p>
+          <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
+          <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
+            <span style="color:#34d399;">&#9679;</span><span>APAC leadership scope &mdash; Kate wants APAC, conflicts with Irin. Key decision: Australia-only or APAC-wide?</span>
+            <span style="color:#34d399;">&#9679;</span><span>Book of business &mdash; manages 35+ at Newland Chase. What clients would follow? Non-compete?</span>
+            <span style="color:#34d399;">&#9679;</span><span>0-1 appetite &mdash; she runs an established 3-city operation. Is she excited about building from scratch?</span>
+            <span style="color:#34d399;">&#9679;</span><span>Comp discussion &mdash; MD-level at Newland Chase (CIBT subsidiary) sets a high floor.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aaron -->
+      <div style="background:#0f1419;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
+        <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127470;&#127466; Aaron Flynn &mdash; Ireland <span class="st st-y">2nd Round with Dan</span></div>
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p><strong>Where we are:</strong> 2nd round with Dan. Director of Immigration (Ireland) at Envoy Global &mdash; 20+ years, ex-State Solicitor, represented Ireland at the Court of Justice in Luxembourg. Only issue: <strong>6-month notice period + 12-month non-compete</strong>.</p>
+          <div style="background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);border-radius:8px;padding:10px 14px;margin:10px 0;font-size:12px;color:#c9d1d9;">
+            <strong style="color:#fbbf24;">Ireland Investment Case (Aaron&rsquo;s numbers):</strong> ~$500K total investment with ~$300K in salaries, for a $7&ndash;$8M revenue capacity.
+          </div>
+          <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
+          <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
+            <span style="color:#fbbf24;">&#9679;</span><span>Notice period / non-compete &mdash; <strong>#1 question.</strong> Has Andy (JAM) negotiated it down? Realistic start date?</span>
+            <span style="color:#fbbf24;">&#9679;</span><span>Corporate client base at Envoy &mdash; who specifically? Would any follow him?</span>
+            <span style="color:#fbbf24;">&#9679;</span><span>Ireland market entry view &mdash; validated consultancy-first model in April. Updated read on competition.</span>
+            <span style="color:#fbbf24;">&#9679;</span><span>Culture fit &mdash; assess startup appetite vs comfort at a well-funded established firm.</span>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Kate -->
-    <div style="background:#0f1419;border:1px solid rgba(52,211,153,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127462;&#127482; Kate Vircoe &mdash; Australia <span class="st st-g">Dan Call Done (May 19)</span></div>
-      <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> Dan call completed May 19. MD of Newland Chase ANZ &mdash; runs 35+ across Sydney, Melbourne, Brisbane. 15+ years corporate immigration. Product demo done with Sagar (May 1). Strong interest signals.</p>
-        <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
-        <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#34d399;">&#9679;</span><span>APAC leadership scope &mdash; Kate wants APAC, which conflicts with Irin in Singapore. Key decision: Australia-only or APAC-wide?</span>
-          <span style="color:#34d399;">&#9679;</span><span>Book of business portability &mdash; manages 35+ people at Newland Chase. What clients would follow? Non-compete?</span>
-          <span style="color:#34d399;">&#9679;</span><span>0-1 appetite &mdash; she runs an established 3-city operation. Is she excited about building from scratch?</span>
-          <span style="color:#34d399;">&#9679;</span><span>Comp discussion &mdash; MD-level at Newland Chase (CIBT subsidiary) sets a high floor.</span>
+    <!-- ===== 3. DUBAI ===== -->
+    <div id="di-dubai" style="scroll-margin-top:120px;margin-bottom:40px;">
+      <h2>&#127462;&#127466; 3. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</h2>
+      <div class="divider"></div>
+      <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:8px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#c9d1d9;">
+        <strong style="color:#34d399;">The ask:</strong> Dan&rsquo;s sign-off on the board resolution so Eric can begin US attestation of 3 formation documents (Certificate of Incorporation, Memorandum, Shareholding Certificate). This is the initial ~$5K spend &mdash; not the full entity setup cost.
+      </div>
+      <div class="detail-grid">
+        <span class="detail-label">Board Resolution</span><span>Drafted by vendor, confirmed in order (May 14). Submitted to Avi for legal review May 26 (URGENT). Eric pushing for approval this week.</span>
+        <span class="detail-label">Attestation</span><span>~$300/doc &times; 3 docs. Process: US notary &rarr; UAE Embassy &rarr; Ministry of Foreign Affairs.</span>
+        <span class="detail-label">What It Unlocks</span><span>Once attested, vendor begins company formation. License in 1 week. First employee in 15 days.</span>
+        <span class="detail-label">Structure</span><span>Mainland recommended. CSP + Document Clearing license &mdash; no law firm needed.</span>
+        <span class="detail-label">Vendor</span><span>Elevate Auditing (Parth Choudhury). Free advisory until $100K revenue.</span>
+      </div>
+    </div>
+
+    <!-- ===== 4. HIRING STRATEGY ===== -->
+    <div id="di-strategy" style="scroll-margin-top:120px;margin-bottom:40px;">
+      <h2>4. Hiring Strategy &mdash; All Markets</h2>
+      <div class="divider"></div>
+
+      <h3>3 Options &mdash; Dubai, Singapore &amp; Australia</h3>
+      <p style="font-size:13px;color:#8b949e;margin-bottom:16px;">Three interconnected hires: Sana (Dubai), Irin (Singapore), Kate vs Martin (Australia). Kate wants APAC leadership which may conflict with Irin&rsquo;s scope.</p>
+      <div class="strategy-grid">
+        <div class="strategy-card opt-fast">
+          <div class="strategy-label" style="color:#34d399;">Option 1</div>
+          <div class="strategy-title" style="color:#34d399;">Move Fast</div>
+          <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; SG + &#127462;&#127482; AU</strong>Offer Sana, Irin, Martin &mdash; move on all three together</div>
+          <div class="strategy-region"><strong>&#127468;&#127463; UK</strong>Offer Andrew Barnett or Yunelsi to unlock SRA</div>
+          <div class="strategy-region"><strong>&#127464;&#127462; Canada</strong>Co-counsel in place; pipeline for junior</div>
+        </div>
+        <div class="strategy-card opt-balanced">
+          <div class="strategy-label" style="color:#fbbf24;">Option 2</div>
+          <div class="strategy-title" style="color:#fbbf24;">Steady Push</div>
+          <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; SG + &#127462;&#127482; AU</strong>Offer Sana &amp; Irin, keep negotiating Kate &mdash; resolve APAC overlap first</div>
+          <div class="strategy-region"><strong>&#127468;&#127463; UK</strong>Keep looking for the senior lawyer, ideally Antonio; don&rsquo;t rush SRA</div>
+          <div class="strategy-region"><strong>&#127464;&#127462; Canada</strong>Continue searching for trophy lawyer</div>
+        </div>
+        <div class="strategy-card opt-perfect">
+          <div class="strategy-label" style="color:#60a5fa;">Option 3</div>
+          <div class="strategy-title" style="color:#60a5fa;">Perfectionist</div>
+          <div class="strategy-region" style="background:rgba(88,166,255,0.05);border-radius:6px;padding:8px 6px;border-left:3px solid #58a6ff;margin-bottom:8px;"><strong style="color:#58a6ff;">&#127462;&#127466; Dubai + &#127480;&#127468; SG + &#127462;&#127482; AU</strong>Go slow &mdash; find someone better for AU, keep Irin &amp; Sana warm</div>
+          <div class="strategy-region"><strong>&#127468;&#127463; UK / &#127464;&#127462; Canada</strong>Continue search in both</div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:28px;">&#127468;&#127463; UK Lead Hire &mdash; SRA Blocked</h3>
+      <div style="background:#0f1419;border:1px solid rgba(248,113,113,0.3);border-radius:10px;padding:16px;margin-top:8px;margin-bottom:16px;">
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p><strong>Core problem:</strong> SRA requires a named lead lawyer to proceed. Without this hire, no professional indemnity insurance, no registration, no UK operations. Consider hiring someone willing to not be country lead just to name them on the SRA application.</p>
+          <p style="margin-top:8px;"><strong>Active candidates:</strong> Andrew Barnett (ex-Fragomen, 12 yrs), Yunelsi Wray, Antonio Lam (still an option), Carine Elliott, Camilla Kellerman. No clear #1 yet.</p>
+          <p style="margin-top:8px;"><strong>Backup:</strong> Co-counsel with Lynn McCloghry (Eversage Associates) for interim coverage.</p>
+        </div>
+      </div>
+
+      <h3>M&amp;A Outlook</h3>
+      <div style="background:#0f1419;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;margin-top:8px;">
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p style="color:#fbbf24;font-weight:600;margin-bottom:8px;">M&amp;A is not the first step &mdash; all deals on hold until practice leads are in place.</p>
+          <p style="margin-bottom:6px;"><strong>Toronto firm:</strong> Plateau revenue, CA$1.55M adj. EBITDA, CA$4.8M&ndash;$9.3M valuation range. ~67% client concentration risk. Working through with Monica.</p>
+          <p><strong>Dublin/UK firm:</strong> One-person firm in both markets. Acquisition fallback if hiring stalls.</p>
         </div>
       </div>
     </div>
 
-    <!-- Aaron -->
-    <div style="background:#0f1419;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127470;&#127466; Aaron Flynn &mdash; Ireland <span class="st st-y">2nd Round with Dan</span></div>
-      <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> 2nd round with Dan. Director of Immigration (Ireland) at Envoy Global &mdash; 20+ years, previously State Solicitor in Ireland&rsquo;s Chief State Solicitor&rsquo;s Office, represented Ireland at the Court of Justice in Luxembourg. Ex-BAL/Deloitte. Only issue: <strong>6-month notice period + 12-month non-compete</strong>.</p>
-        <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
-        <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#fbbf24;">&#9679;</span><span>Notice period / non-compete &mdash; <strong>#1 question.</strong> Has Andy (JAM) negotiated it down from 6 months? Realistic start date?</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Corporate client base at Envoy &mdash; who specifically? Would any follow him?</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Ireland market entry view &mdash; validated consultancy-first model in April. Updated read on competition and timeline.</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Culture fit &mdash; assess startup appetite vs comfort at a well-funded established firm.</span>
+    <!-- ===== 5. GLOBAL GM ===== -->
+    <div id="di-gm" style="scroll-margin-top:120px;margin-bottom:40px;">
+      <h2>5. Global GM</h2>
+      <div class="divider"></div>
+      <div style="background:#0f1419;border:1px solid rgba(192,132,252,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p>Global is going to need <strong>dedicated senior leadership</strong>. This is a fundamentally different line of business &mdash; different regulatory environments, different client delivery model, different operational complexity. It&rsquo;s not something that can be handed off to Matt&rsquo;s team.</p>
+          <p style="margin-top:10px;">Current thinking: Sophie is the most natural fit, but <strong>it could also be me (Gedalia)</strong>. Either way, we should start thinking about who this person is and whether we need to begin looking externally.</p>
+          <p style="margin-top:10px;color:#c084fc;font-weight:600;">This needs to be part of the conversation.</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Jack Kim Visit -->
-  <div id="dd-jack-visit" class="deep-section">
-    <h2>Jack Kim &mdash; NYC Visit</h2>
-    <div class="divider"></div>
-    <p style="color:#34d399;font-weight:600;margin-bottom:16px;">Two proposed dates &mdash; goal is to close.</p>
-
-    <div class="strategy-grid" style="grid-template-columns:1fr 1fr;margin-top:0;">
-      <div class="strategy-card opt-fast">
-        <div class="strategy-label" style="color:#34d399;">Option A</div>
-        <div class="strategy-title" style="color:#34d399;">June 4&ndash;5</div>
-        <div class="strategy-region"><strong>Thursday, June 4</strong>Jack arrives Thursday night &rarr; dinner</div>
-        <div class="strategy-region"><strong>Friday, June 5</strong>Half-day meetings</div>
-      </div>
-      <div class="strategy-card opt-balanced">
-        <div class="strategy-label" style="color:#fbbf24;">Option B</div>
-        <div class="strategy-title" style="color:#fbbf24;">June 14&ndash;15</div>
-        <div class="strategy-region"><strong>Sunday, June 14</strong>Jack arrives Sunday night &rarr; dinner</div>
-        <div class="strategy-region"><strong>Monday, June 15</strong>Half-day meetings</div>
-      </div>
-    </div>
-
-    <h3 style="margin-top:24px;">Proposed Schedule</h3>
-    <div style="background:#0f1419;border:1px solid rgba(99,110,123,0.3);border-radius:10px;padding:16px;margin-top:8px;">
-      <div style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:13px;">
-        <span style="color:#fbbf24;font-weight:700;">Evening</span>
-        <span><strong>Dinner with Dan &amp; Matt</strong> (or Lily &amp; Gedalia). Light negotiation happens here &mdash; set the tone, build rapport, start discussing terms casually.</span>
-        <span style="color:#34d399;font-weight:700;">Morning</span>
-        <span><strong>Team Meetings:</strong> Nicole / Haesung, the PM, Head of AI, and anyone else relevant. Give Jack a feel for the team and the product.</span>
-        <span style="color:#58a6ff;font-weight:700;">Afternoon</span>
-        <span><strong>Long session with Dan</strong> &mdash; negotiate and close. This is the main event. Come in with clear terms from dinner the night before.</span>
-      </div>
-    </div>
-
-    <h3 style="margin-top:20px;">Negotiation Status &mdash; Where Things Stand</h3>
-    <div style="background:#0f1419;border:1px solid rgba(99,110,123,0.3);border-radius:10px;padding:16px;margin-top:8px;">
-      <div style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:13px;">
-        <span style="color:#8b949e;font-weight:700;">May 18</span>
-        <span>Gedalia sent comp slides to Jack.</span>
-        <span style="color:#f87171;font-weight:700;">May 21</span>
-        <span><strong>Jack pushed back hard on equity.</strong> His analysis: $720K&ndash;$1.2M cash differential over 5 years favoring Fragomen. Says Manifest&rsquo;s 0.02% equity doesn&rsquo;t price in risk &mdash; assumed $5B valuation with 50% dilution. Original ask was 1%, stated floor is 0.5%. Said if 0.5% is unrealistic, &ldquo;you may want to start going in another direction.&rdquo;</span>
-        <span style="color:#34d399;font-weight:700;">May 21</span>
-        <span><strong>Gedalia responded:</strong> Corrected valuation target to $20B (not $5B). Flagged that 0.5% = $3.75M&ndash;$6M in options (23x over current $162K offer). Argued 5-year cash comparison is incomplete &mdash; doesn&rsquo;t account for future bonuses and grants as Canada practice grows. Asked Jack to send a formal counteroffer.</span>
-        <span style="color:#58a6ff;font-weight:700;">May 24</span>
-        <span>Gedalia pivoted to in-person: invited Jack to fly into NYC to see the operation and meet the team.</span>
-        <span style="color:#34d399;font-weight:700;">May 25</span>
-        <span>Jack responded positively &mdash; agreed to a call to discuss logistics.</span>
-        <span style="color:#fbbf24;font-weight:700;">May 27</span>
-        <span><strong>Today:</strong> Call at 10 AM to discuss visit dates and next steps.</span>
-      </div>
-    </div>
-
-    <h3 style="margin-top:20px;">Key Gaps to Close</h3>
-    <div style="background:#0f1419;border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:16px;margin-top:8px;">
-      <div style="font-size:13px;color:#c9d1d9;">
-        <div style="margin-bottom:10px;"><span style="color:#f87171;font-weight:700;">Equity gap:</span> Manifest offered 0.02% &rarr; Jack&rsquo;s floor is 0.5% (25x apart). Jack originally asked for 1%.</div>
-        <div style="margin-bottom:10px;"><span style="color:#fbbf24;font-weight:700;">Cash gap:</span> Jack calculates $720K&ndash;$1.2M less cash over 5 years vs staying at Fragomen.</div>
-        <div style="margin-bottom:10px;"><span style="color:#58a6ff;font-weight:700;">Valuation framing:</span> Jack modeled at $5B with 50% dilution. Gedalia corrected to $20B target. Need to get Jack modeling on the right assumptions.</div>
-        <div><span style="color:#34d399;font-weight:700;">Visit strategy:</span> Get Jack in the room with Dan, the team, and the product. Build conviction that the growth trajectory and upside are real &mdash; email alone won&rsquo;t close this.</div>
+    <!-- ===== 6. LATAM LAUNCH ===== -->
+    <div id="di-latam" style="scroll-margin-top:120px;margin-bottom:20px;">
+      <h2>6. LATAM Launch</h2>
+      <div class="divider"></div>
+      <div style="background:#0f1419;border:1px solid rgba(96,165,250,0.3);border-radius:10px;padding:16px;">
+        <div style="font-size:13px;color:#c9d1d9;">
+          <p><strong>Mexico as entry point.</strong> Begin formal market research &mdash; market sizing, legal requirements, regulatory landscape, licensing structure. Initial engagement already underway.</p>
+          <p style="margin-top:8px;">This is early-stage &mdash; no entity work needed yet. Just getting the lay of the land so we can make an informed decision on whether and when to expand into Latin America.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -1208,11 +1196,16 @@ function switchTab(t){
 function showDD(s){
   document.querySelectorAll('.deep-section').forEach(function(el){el.classList.remove('active')});
   document.querySelectorAll('.deep-nav-btn').forEach(function(b){b.classList.remove('active')});
-  var el=document.getElementById('dd-'+s);
-  if(el)el.classList.add('active');
   var btns=document.querySelectorAll('.deep-nav-btn');
-  var map={decisions:0,strategy:1,mna:2,'uk-hiring':3,entities:4,'jack-visit':5,followups:6};
-  if(map[s]!==undefined&&btns[map[s]])btns[map[s]].classList.add('active');
+  if(s==='entities'){
+    document.getElementById('dd-entities').classList.add('active');
+    if(btns[0])btns[0].classList.add('active');
+  }else{
+    document.getElementById('dd-decisions').classList.add('active');
+    if(btns[1])btns[1].classList.add('active');
+    var anchors={'jack-visit':'di-jack-visit','followups':'di-followups','dubai':'di-dubai','strategy':'di-strategy','gm':'di-gm','latam':'di-latam'};
+    if(anchors[s])setTimeout(function(){document.getElementById(anchors[s]).scrollIntoView({behavior:'smooth',block:'start'});},150);
+  }
 }
 
 function goDeepDive(s){switchTab('deepdive');showDD(s)}
