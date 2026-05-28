@@ -449,8 +449,33 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       </div>
     </div>
 
-    <h3 style="margin-top:20px;">Negotiation Notes</h3>
-    <p>Jack is the lead Canada candidate with strong backchannels (Haesung got strong recommendations). He&rsquo;s a Fragomen Partner covering Canada + LatAm. Dinner should be relaxed but purposeful &mdash; light negotiation to surface his expectations and concerns. The formal close happens the next day with Dan.</p>
+    <h3 style="margin-top:20px;">Negotiation Status &mdash; Where Things Stand</h3>
+    <div style="background:#0f1419;border:1px solid rgba(99,110,123,0.3);border-radius:10px;padding:16px;margin-top:8px;">
+      <div style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:13px;">
+        <span style="color:#8b949e;font-weight:700;">May 18</span>
+        <span>Gedalia sent comp slides to Jack.</span>
+        <span style="color:#f87171;font-weight:700;">May 21</span>
+        <span><strong>Jack pushed back hard on equity.</strong> His analysis: $720K&ndash;$1.2M cash differential over 5 years favoring Fragomen. Says Manifest&rsquo;s 0.02% equity doesn&rsquo;t price in risk &mdash; assumed $5B valuation with 50% dilution. Original ask was 1%, stated floor is 0.5%. Said if 0.5% is unrealistic, &ldquo;you may want to start going in another direction.&rdquo;</span>
+        <span style="color:#34d399;font-weight:700;">May 21</span>
+        <span><strong>Gedalia responded:</strong> Corrected valuation target to $20B (not $5B). Flagged that 0.5% = $3.75M&ndash;$6M in options (23x over current $162K offer). Argued 5-year cash comparison is incomplete &mdash; doesn&rsquo;t account for future bonuses and grants as Canada practice grows. Asked Jack to send a formal counteroffer.</span>
+        <span style="color:#58a6ff;font-weight:700;">May 24</span>
+        <span>Gedalia pivoted to in-person: invited Jack to fly into NYC to see the operation and meet the team.</span>
+        <span style="color:#34d399;font-weight:700;">May 25</span>
+        <span>Jack responded positively &mdash; agreed to a call to discuss logistics.</span>
+        <span style="color:#fbbf24;font-weight:700;">May 27</span>
+        <span><strong>Today:</strong> Call at 10 AM to discuss visit dates and next steps.</span>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px;">Key Gaps to Close</h3>
+    <div style="background:#0f1419;border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:16px;margin-top:8px;">
+      <div style="font-size:13px;color:#c9d1d9;">
+        <div style="margin-bottom:10px;"><span style="color:#f87171;font-weight:700;">Equity gap:</span> Manifest offered 0.02% &rarr; Jack&rsquo;s floor is 0.5% (25x apart). Jack originally asked for 1%.</div>
+        <div style="margin-bottom:10px;"><span style="color:#fbbf24;font-weight:700;">Cash gap:</span> Jack calculates $720K&ndash;$1.2M less cash over 5 years vs staying at Fragomen.</div>
+        <div style="margin-bottom:10px;"><span style="color:#58a6ff;font-weight:700;">Valuation framing:</span> Jack modeled at $5B with 50% dilution. Gedalia corrected to $20B target. Need to get Jack modeling on the right assumptions.</div>
+        <div><span style="color:#34d399;font-weight:700;">Visit strategy:</span> Get Jack in the room with Dan, the team, and the product. Build conviction that the growth trajectory and upside are real &mdash; email alone won&rsquo;t close this.</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -699,7 +724,7 @@ function showDD(s){
   if(el)el.classList.add('active');
   // Highlight nav btn
   var btns=document.querySelectorAll('.deep-nav-btn');
-  var map={entities:0,'uk-hiring':1,strategy:2,mna:3,decisions:4};
+  var map={decisions:0,strategy:1,mna:2,'uk-hiring':3,entities:4,'jack-visit':5};
   if(map[s]!==undefined&&btns[map[s]])btns[map[s]].classList.add('active');
 }
 
