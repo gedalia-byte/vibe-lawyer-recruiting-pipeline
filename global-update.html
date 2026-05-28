@@ -285,7 +285,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <span class="flag">&#127462;&#127466;</span>
       <div class="country">Dubai</div>
       <div class="entity-st"><span class="st st-y">Pending Approval</span></div>
-      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Board resolution under review</div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Board resolution + attestation (~$5K)</div>
       <div style="font-size:10px;color:#fbbf24;margin-top:2px;font-weight:600;">Waiting on: Dan&rsquo;s sign-off</div>
     </div>
     <div class="entity-mini" onclick="goDeepDive('entities')">
@@ -339,14 +339,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
         <span>Dedicated senior GM alongside Sophie &mdash; can&rsquo;t hand off to Matt. Deep dive &rarr;</span>
       </div>
     </div>
-    <div class="decision-item" onclick="goDeepDive('decisions')">
+    <div class="decision-item" onclick="goDeepDive('entities')">
       <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
       <div class="decision-text">
-        <strong>5. Dubai Entity &mdash; Approve ~$5K Spend</strong>
-        <span>Board resolution ready. Need Dan&rsquo;s sign-off to start spending. Deep dive &rarr;</span>
+        <strong>5. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</strong>
+        <span>Initial ask: approve board resolution + US doc attestation to kick off formation. Deep dive &rarr;</span>
       </div>
     </div>
-    <div class="decision-item" onclick="goDeepDive('decisions')">
+    <div class="decision-item" onclick="goDeepDive('followups')">
       <div class="decision-dot" style="background:#58a6ff;box-shadow:0 0 6px #58a6ff;"></div>
       <div class="decision-text">
         <strong>6. Candidate Follow-Ups (Next Week)</strong>
@@ -656,6 +656,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <button class="deep-nav-btn" onclick="showDD('uk-hiring')">UK Hiring</button>
     <button class="deep-nav-btn" onclick="showDD('entities')">Entity Setup</button>
     <button class="deep-nav-btn" onclick="showDD('jack-visit')">Jack Kim Visit</button>
+    <button class="deep-nav-btn" onclick="showDD('followups')">Follow-Ups</button>
   </div>
 
   <!-- Entity Setup Details -->
@@ -695,14 +696,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
       <span class="detail-label">Other Pipeline</span><span>Rick Lamanna (Fragomen)</span>
     </div>
     <h3>&#127462;&#127466; Dubai &mdash; <span class="st st-y">Needs Sign-Off</span></h3>
+    <div style="background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#c9d1d9;">
+      <strong style="color:#34d399;">Initial ask (~$5K):</strong> Approve the board resolution so Eric can proceed with US attestation of 3 formation documents (Certificate of Incorporation, Memorandum, Shareholding Certificate). Process: US notary &rarr; UAE Embassy &rarr; Ministry of Foreign Affairs. Board resolution drafted by vendor, reviewed by Avi (May 26, URGENT). Eric pushing for board approval this week.
+    </div>
     <div class="detail-grid">
-      <span class="detail-label">Entity Status</span><span>Board resolution drafted &amp; under legal review (May 26). Awaiting Dan&rsquo;s sign-off to spend.</span>
-      <span class="detail-label">Structure</span><span>Mainland recommended (~30K AED / ~$8.2K). CSP + Document Clearing license &mdash; no law firm needed.</span>
-      <span class="detail-label">Vendor</span><span>Elevate Auditing (Parth Choudhury) &mdash; entity setup, compliance, payroll. Free advisory to $100K revenue.</span>
-      <span class="detail-label">Timeline</span><span>License in 1 week after attested docs received. First employee in 15 days. Bottleneck: US doc attestation.</span>
-      <span class="detail-label">Cost</span><span>~$5K+ initial (registration + attestation + nominal office). Annual renewal ~$400.</span>
+      <span class="detail-label">Board Resolution</span><span>Drafted by vendor, confirmed in order (May 14). Submitted to Avi for legal review May 26. Needs Dan&rsquo;s sign-off.</span>
+      <span class="detail-label">Attestation Cost</span><span>~$300/doc &times; 3 docs + notary + courier fees. This is the immediate spend.</span>
+      <span class="detail-label">What It Unlocks</span><span>Once docs are attested, vendor begins company formation. License issued within 1 week. First employee onboarded in 15 days.</span>
+      <span class="detail-label">Structure</span><span>Mainland recommended (CSP + Document Clearing license &mdash; no law firm needed). Full formation cost: ~30K AED (~$8.2K).</span>
+      <span class="detail-label">Vendor</span><span>Elevate Auditing (Parth Choudhury). Free advisory until $100K revenue.</span>
       <span class="detail-label">Lead Candidate</span><span>Sana Sheikh &mdash; Round 2</span>
-      <span class="detail-label">Other Pipeline</span><span>None &mdash; need 2-3 more candidates (pipeline goal: 3-4 finalists)</span>
+      <span class="detail-label">Other Pipeline</span><span>None &mdash; need 2-3 more candidates</span>
     </div>
     <h3>&#127480;&#127468; Singapore &mdash; <span class="st st-b">In Progress</span></h3>
     <div class="detail-grid">
@@ -790,62 +794,82 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
   <!-- Decisions -->
   <div id="dd-decisions" class="deep-section active">
-    <h2>Discussion Items &mdash; Full Analysis</h2>
+    <h2>Discussion Items</h2>
     <div class="divider"></div>
+    <p style="font-size:13px;color:#8b949e;margin-bottom:16px;">Click any item to see the full deep dive.</p>
 
-    <h3>1. Hiring Strategy &mdash; Dubai, Singapore &amp; Australia</h3>
-    <p>Three interconnected hires that need to be decided together. Sana (Dubai), Irin (Singapore), and Kate vs Martin (Australia) &mdash; Kate wants APAC leadership which may conflict with Irin&rsquo;s role.</p>
-    <p><a class="source-link" onclick="showDD('strategy')" style="font-weight:700;">See 3 strategy options &rarr;</a></p>
-
-    <h3>2. UK Lead Hire</h3>
-    <p>SRA application requires a named lead lawyer. Without this hire, Manifest cannot get professional indemnity insurance, cannot register, cannot operate in the UK. Consider hiring someone willing to not be country lead so we can name them as SRA practitioner.</p>
-    <p><a class="source-link" onclick="showDD('uk-hiring')" style="font-weight:700;">See UK candidates &amp; backup strategy &rarr;</a></p>
-
-    <h3>3. Jack Kim NYC Visit</h3>
-    <p>Two date options for Jack to visit NYC to negotiate and close. Goal: dinner + half-day meetings to get the deal done. Equity gap is significant (0.02% offered vs 0.5% floor).</p>
-    <p><a class="source-link" onclick="showDD('jack-visit')" style="font-weight:700;">See dates, negotiation timeline &amp; key gaps &rarr;</a></p>
-
-    <h3>4. Global Leadership &mdash; Dedicated GM Needed</h3>
-    <p>Co-counseling work is making it clear: Global is going to need a <strong>dedicated senior GM alongside Sophie</strong>. This is a fundamentally different line of business &mdash; different regulatory environments, different client delivery model, different operational complexity. It&rsquo;s not something that can be handed off to a junior, and it&rsquo;s not a natural extension of Matt&rsquo;s role. Global needs its own dedicated leadership to deliver the experience we want. <strong>This needs to be part of the conversation.</strong></p>
-
-    <h3>5. Dubai Entity &mdash; Pull the Trigger?</h3>
-    <div style="background:#0f1419;border:1px solid rgba(52,211,153,0.3);border-radius:10px;padding:16px;margin-top:8px;margin-bottom:16px;">
-      <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>The ask:</strong> Dan&rsquo;s sign-off to invest real money (~$5K+) to proceed with UAE entity registration. Board resolution has been drafted by the vendor (Elevate Auditing) and submitted to Avi for legal review on May 26 &mdash; marked URGENT. Eric is pushing for board approval within the week.</p>
-        <p style="margin-top:10px;"><strong>What the money covers:</strong></p>
-        <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#34d399;">&#9679;</span><span><strong>Mainland registration:</strong> ~30,000 AED (~$8.2K) with current government discounts (down from 40K). Elevate recommends Mainland over Free Zone for long-term coverage &mdash; ability to serve local clients, government contracts, broader APAC hub use.</span>
-          <span style="color:#34d399;">&#9679;</span><span><strong>Document attestation:</strong> ~$300/doc &times; 3 docs (Certificate of Incorporation, Memorandum, Shareholding Certificate). Multi-step: US notary &rarr; UAE Embassy &rarr; courier &rarr; Ministry of Foreign Affairs.</span>
-          <span style="color:#34d399;">&#9679;</span><span><strong>Nominal office rent:</strong> ~4,000 AED/yr ($1.1K) for compliance &mdash; no physical space needed initially. Elevate offering their office address for courier/PO box.</span>
-          <span style="color:#34d399;">&#9679;</span><span><strong>Annual renewal:</strong> ~1,500 AED/yr for Certificate of Good Standing.</span>
+    <div class="decision-list">
+      <div class="decision-item" onclick="showDD('strategy')">
+        <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
+        <div class="decision-text">
+          <strong>1. Hiring Strategy &mdash; Dubai / SG / AU</strong>
+          <span>Three interconnected hires &mdash; Sana, Irin, Kate vs Martin. APAC scope conflict. See 3 options &rarr;</span>
         </div>
-        <p style="margin-top:10px;"><strong>Key facts from vendor calls:</strong></p>
-        <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#58a6ff;">&#9679;</span><span><strong>No law firm needed</strong> &mdash; CSP (Corporate Service Provider) + Document Clearing Services license covers all immigration work in the UAE.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span><strong>Timeline:</strong> License issued within 1 week of receiving attested docs. First employee onboarded within 15 days. Main bottleneck is the US attestation process.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span><strong>Vendor:</strong> Elevate Auditing (Parth Choudhury) &mdash; one-stop-shop: entity setup, compliance, payroll, accounting. Free advisory until $100K revenue.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span><strong>100% foreign ownership</strong> &mdash; US parent company owns the subsidiary outright.</span>
+      </div>
+      <div class="decision-item" onclick="showDD('uk-hiring')">
+        <div class="decision-dot" style="background:#f87171;box-shadow:0 0 6px #f87171;"></div>
+        <div class="decision-text">
+          <strong>2. UK Lead Hire</strong>
+          <span>SRA blocked until we name a lead lawyer. No clear #1 yet. See candidates &rarr;</span>
         </div>
-        <p style="margin-top:10px;"><strong style="color:#fbbf24;">Decision needed:</strong> Do we authorize the spend and sign the board resolution? Once signed, Eric and the vendor can move immediately. The longer we wait, the longer until Sana (or any hire) can be onboarded in-country.</p>
+      </div>
+      <div class="decision-item" onclick="showDD('jack-visit')">
+        <div class="decision-dot" style="background:#a78bfa;box-shadow:0 0 6px #a78bfa;"></div>
+        <div class="decision-text">
+          <strong>3. Jack Kim NYC Visit</strong>
+          <span>Pick dates (June 4&ndash;5 or 14&ndash;15), align on equity negotiation. 0.02% vs 0.5% gap. See details &rarr;</span>
+        </div>
+      </div>
+      <div class="decision-item" style="cursor:default;">
+        <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
+        <div class="decision-text">
+          <strong>4. Global GM Needed</strong>
+          <span>Global needs a dedicated senior GM alongside Sophie. Different business, different complexity &mdash; can&rsquo;t hand off to Matt&rsquo;s team.</span>
+        </div>
+      </div>
+      <div class="decision-item" onclick="showDD('entities')">
+        <div class="decision-dot" style="background:#34d399;box-shadow:0 0 6px #34d399;"></div>
+        <div class="decision-text">
+          <strong>5. Dubai &mdash; Board Resolution &amp; Attestation (~$5K)</strong>
+          <span>Initial ask: approve board resolution so Eric can begin US doc attestation. Not full entity cost. See entity details &rarr;</span>
+        </div>
+      </div>
+      <div class="decision-item" onclick="showDD('followups')">
+        <div class="decision-dot" style="background:#58a6ff;box-shadow:0 0 6px #58a6ff;"></div>
+        <div class="decision-text">
+          <strong>6. Candidate Follow-Ups (Next Week)</strong>
+          <span>Irin (SG), Kate (AU), Aaron (IE) &mdash; what each call should cover. See prep &rarr;</span>
+        </div>
+      </div>
+      <div class="decision-item" style="cursor:default;">
+        <div class="decision-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div>
+        <div class="decision-text">
+          <strong>7. LATAM Research</strong>
+          <span>Mexico as entry point. Begin formal market research &mdash; sizing, legal requirements, regulatory landscape.</span>
+        </div>
       </div>
     </div>
+  </div>
 
-    <h3>6. Candidate Follow-Ups &mdash; Beginning of Next Week</h3>
+  <!-- Candidate Follow-Ups -->
+  <div id="dd-followups" class="deep-section">
+    <h2>Candidate Follow-Ups &mdash; Next Week</h2>
+    <div class="divider"></div>
     <div style="background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:14px 16px;margin-bottom:16px;">
-      <div style="font-size:13px;color:#c9d1d9;"><span style="color:#58a6ff;font-weight:700;">Pipeline Goal:</span> We are building out pipelines so that we have <strong>3&ndash;4 finalists in every country</strong> before making a final hire decision. The follow-ups below are about deepening our top candidates while continuing to source additional pipeline in parallel &mdash; not about rushing to close on a single person per market.</div>
+      <div style="font-size:13px;color:#c9d1d9;"><span style="color:#58a6ff;font-weight:700;">Pipeline Goal:</span> 3&ndash;4 finalists in every country before making a final hire decision. These follow-ups deepen our top candidates while we continue sourcing pipeline in parallel.</div>
     </div>
 
     <!-- Irin -->
-    <div style="background:#0f1419;border:1px solid rgba(96,165,250,0.3);border-radius:10px;padding:16px;margin-top:12px;margin-bottom:12px;">
+    <div style="background:#0f1419;border:1px solid rgba(96,165,250,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
       <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127480;&#127468; Irin Ou &mdash; Singapore <span class="st st-g">2nd Round Done (May 25)</span></div>
       <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> 2nd round with Dan completed May 25. She&rsquo;s Director of Immigration at Vialto Partners (spun out of PwC) &mdash; 4+ years at Director level, managing corporate immigration for multinationals across 150+ countries. Vialto won &ldquo;Immigration Provider of the Year&rdquo; at the 2025 FEM APAC EMMAs. She already understands AI-enabled immigration tools (Vialto has VialtoExplore).</p>
+        <p><strong>Where we are:</strong> 2nd round with Dan completed May 25. Director of Immigration at Vialto Partners (spun out of PwC) &mdash; 4+ years at Director level, managing corporate immigration across 150+ countries. Understands AI-enabled immigration tools (Vialto has VialtoExplore).</p>
         <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
         <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#58a6ff;">&#9679;</span><span>Comp expectations &mdash; Director-level at a major global firm means high baseline. Confirm equity is on the table and at what level.</span>
+          <span style="color:#58a6ff;">&#9679;</span><span>Comp expectations &mdash; Director-level at a major global firm means high baseline. Confirm equity is on the table.</span>
           <span style="color:#58a6ff;">&#9679;</span><span>Corporate client list &mdash; hard filter. Need names, not categories. Would any follow her?</span>
-          <span style="color:#58a6ff;">&#9679;</span><span>APAC scope clarification &mdash; what is her role vs Kate Vircoe&rsquo;s APAC leadership ambitions? This needs to be resolved before either offer goes out.</span>
-          <span style="color:#58a6ff;">&#9679;</span><span>Singapore entity timeline &mdash; share where incorporation stands and realistic launch date so she can plan.</span>
+          <span style="color:#58a6ff;">&#9679;</span><span>APAC scope clarification &mdash; her role vs Kate Vircoe&rsquo;s APAC leadership ambitions. Must resolve before either offer goes out.</span>
+          <span style="color:#58a6ff;">&#9679;</span><span>Singapore entity timeline &mdash; share where incorporation stands and realistic launch date.</span>
         </div>
       </div>
     </div>
@@ -854,34 +878,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
     <div style="background:#0f1419;border:1px solid rgba(52,211,153,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
       <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127462;&#127482; Kate Vircoe &mdash; Australia <span class="st st-g">Dan Call Done (May 19)</span></div>
       <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> Kate had her call with Dan on May 19. She&rsquo;s MD of Newland Chase ANZ &mdash; runs a team of 35+ across Sydney, Melbourne, and Brisbane. 15+ years corporate immigration, met Gedalia at WERC Singapore. Already did a product demo with Sagar (May 1). Strong interest signals &mdash; accepted multiple reschedules, enthusiastic responder.</p>
+        <p><strong>Where we are:</strong> Dan call completed May 19. MD of Newland Chase ANZ &mdash; runs 35+ across Sydney, Melbourne, Brisbane. 15+ years corporate immigration. Product demo done with Sagar (May 1). Strong interest signals.</p>
         <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
         <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#34d399;">&#9679;</span><span>APAC leadership scope &mdash; Kate wants APAC, which directly conflicts with Irin in Singapore. Define the role: Australia-only lead, or APAC-wide? This is the key decision.</span>
-          <span style="color:#34d399;">&#9679;</span><span>Book of business portability &mdash; she manages 35+ people at Newland Chase. What clients would she bring? Non-compete situation?</span>
-          <span style="color:#34d399;">&#9679;</span><span>0-1 appetite &mdash; she runs an established 3-city operation today. Is she genuinely excited about building from scratch, or is this a lateral?</span>
-          <span style="color:#34d399;">&#9679;</span><span>Comp discussion &mdash; MD-level at Newland Chase (CIBT subsidiary, ~$143M&ndash;$346M revenue) sets a high floor. Need to understand her expectations before extending.</span>
+          <span style="color:#34d399;">&#9679;</span><span>APAC leadership scope &mdash; Kate wants APAC, which conflicts with Irin in Singapore. Key decision: Australia-only or APAC-wide?</span>
+          <span style="color:#34d399;">&#9679;</span><span>Book of business portability &mdash; manages 35+ people at Newland Chase. What clients would follow? Non-compete?</span>
+          <span style="color:#34d399;">&#9679;</span><span>0-1 appetite &mdash; she runs an established 3-city operation. Is she excited about building from scratch?</span>
+          <span style="color:#34d399;">&#9679;</span><span>Comp discussion &mdash; MD-level at Newland Chase (CIBT subsidiary) sets a high floor.</span>
         </div>
       </div>
     </div>
 
     <!-- Aaron -->
     <div style="background:#0f1419;border:1px solid rgba(251,191,36,0.3);border-radius:10px;padding:16px;margin-bottom:12px;">
-      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127470;&#127466; Aaron Flynn &mdash; Ireland <span class="st st-y">2nd Round TODAY (1:30 PM)</span></div>
+      <div style="font-size:15px;font-weight:700;margin-bottom:8px;">&#127470;&#127466; Aaron Flynn &mdash; Ireland <span class="st st-y">2nd Round with Dan</span></div>
       <div style="font-size:13px;color:#c9d1d9;">
-        <p><strong>Where we are:</strong> Aaron&rsquo;s 2nd round with Dan is today at 1:30 PM. He&rsquo;s Director of Immigration (Ireland) at Envoy Global &mdash; 20+ years experience, previously State Solicitor in Ireland&rsquo;s Chief State Solicitor&rsquo;s Office (Immigration Division), represented Ireland at the Court of Justice in Luxembourg. Ex-BAL/Deloitte. Admitted in both Ireland and England &amp; Wales. First interview in April went very well &mdash; only issue was <strong>6-month notice period + 12-month non-compete</strong> at Envoy.</p>
+        <p><strong>Where we are:</strong> 2nd round with Dan. Director of Immigration (Ireland) at Envoy Global &mdash; 20+ years, previously State Solicitor in Ireland&rsquo;s Chief State Solicitor&rsquo;s Office, represented Ireland at the Court of Justice in Luxembourg. Ex-BAL/Deloitte. Only issue: <strong>6-month notice period + 12-month non-compete</strong>.</p>
         <p style="margin-top:8px;"><strong>Follow-up should cover:</strong></p>
         <div style="display:grid;grid-template-columns:20px 1fr;gap:4px 8px;margin-top:6px;">
-          <span style="color:#fbbf24;">&#9679;</span><span>Notice period / non-compete status &mdash; <strong>this is the #1 question.</strong> Has Andy (JAM) negotiated it down from 6 months? What&rsquo;s the realistic start date?</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Corporate client base at Envoy &mdash; who are the clients? Tech, pharma, professional services? Would any follow him?</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Ireland market entry view &mdash; he validated the consultancy-first model in April. Get his updated read on structure, competition, and timeline.</span>
-          <span style="color:#fbbf24;">&#9679;</span><span>Culture fit &mdash; this is a Dan CEO interview. Assess startup appetite vs comfort in a large established firm (Envoy is a well-funded tech-enabled immigration company).</span>
+          <span style="color:#fbbf24;">&#9679;</span><span>Notice period / non-compete &mdash; <strong>#1 question.</strong> Has Andy (JAM) negotiated it down from 6 months? Realistic start date?</span>
+          <span style="color:#fbbf24;">&#9679;</span><span>Corporate client base at Envoy &mdash; who specifically? Would any follow him?</span>
+          <span style="color:#fbbf24;">&#9679;</span><span>Ireland market entry view &mdash; validated consultancy-first model in April. Updated read on competition and timeline.</span>
+          <span style="color:#fbbf24;">&#9679;</span><span>Culture fit &mdash; assess startup appetite vs comfort at a well-funded established firm.</span>
         </div>
       </div>
     </div>
-
-    <h3>7. LATAM Initiation</h3>
-    <p>Engaged in Mexico. Begin formal research into Latin American markets &mdash; market sizing, legal requirements, regulatory landscape. Mexico is the entry point.</p>
   </div>
 
   <!-- Jack Kim Visit -->
@@ -1122,8 +1143,8 @@ var entities={
       {name:"Jack Kim",role:"Partner — Canada + LatAm",firm:"Fragomen",status:"Lead Candidate",statusColor:"#34d399",stCls:"st-g",linkedin:"https://linkedin.com/in/jack-kim-%F0%9F%87%A8%F0%9F%87%A6-67887213",backchannel:"Strong. Haesung got strong recommendations."},
       {name:"Rick Lamanna",role:"Immigration Lawyer",firm:"Fragomen",status:"Pipeline",statusColor:"#60a5fa",stCls:"st-b",linkedin:"https://linkedin.com/in/rick-lamanna-48186715",backchannel:""}
     ]},
-  dubai:{name:"\u{1F1E6}\u{1F1EA} Dubai",status:"Needs Dan's Sign-Off (~$5K+)",statusColor:"#fbbf24",stCls:"st-y",
-    details:"Board resolution under legal review. Mainland recommended (~$8.2K). Vendor: Elevate Auditing. License in 1 week after attested docs. Awaiting Dan's approval to spend.",
+  dubai:{name:"\u{1F1E6}\u{1F1EA} Dubai",status:"Pending Board Resolution",statusColor:"#fbbf24",stCls:"st-y",
+    details:"Initial ask: approve board resolution + US attestation of 3 docs (~$5K). Board resolution reviewed by Avi (May 26). Eric pushing for approval this week. Once attested, vendor begins formation immediately.",
     candidates:[
       {name:"Sana Sheikh",role:"Immigration Lawyer",firm:"",status:"Round 2",statusColor:"#fbbf24",stCls:"st-y",linkedin:"https://www.linkedin.com/in/sana-s-04a182a5/",backchannel:""}
     ]},
@@ -1190,7 +1211,7 @@ function showDD(s){
   var el=document.getElementById('dd-'+s);
   if(el)el.classList.add('active');
   var btns=document.querySelectorAll('.deep-nav-btn');
-  var map={decisions:0,strategy:1,mna:2,'uk-hiring':3,entities:4,'jack-visit':5};
+  var map={decisions:0,strategy:1,mna:2,'uk-hiring':3,entities:4,'jack-visit':5,followups:6};
   if(map[s]!==undefined&&btns[map[s]])btns[map[s]].classList.add('active');
 }
 
