@@ -19,19 +19,66 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .tab-panel{display:none;padding:24px;max-width:1240px;margin:0 auto}
 .tab-panel.active{display:block}
 
+/* --- OVERVIEW: KPI row --- */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.kpi-card{background:#161b22;border-radius:12px;padding:18px 20px;border:1px solid rgba(99,110,123,0.3);text-align:center}
+.kpi-value{font-size:28px;font-weight:800;line-height:1.1}
+.kpi-label{font-size:12px;color:#8b949e;margin-top:4px;font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.kpi-sub{font-size:11px;color:#8b949e;margin-top:6px}
+
+/* --- OVERVIEW: Section headers --- */
+.section-header{display:flex;align-items:center;gap:10px;margin-bottom:14px;margin-top:28px}
+.section-header:first-child{margin-top:0}
+.section-header h2{font-size:17px;font-weight:700;color:#e6edf3}
+.section-header .icon{font-size:20px}
+.section-header .see-more{margin-left:auto;font-size:12px;color:#58a6ff;cursor:pointer;font-weight:600;border:none;background:none}
+.section-header .see-more:hover{text-decoration:underline}
+
+/* --- OVERVIEW: Entity status row --- */
+.entity-status-row{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-bottom:24px}
+.entity-mini{background:#161b22;border-radius:10px;padding:14px 12px;border:1px solid rgba(99,110,123,0.3);cursor:pointer;transition:all .2s;text-align:center}
+.entity-mini:hover{border-color:rgba(88,166,255,0.4);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.4)}
+.entity-mini .flag{font-size:22px;display:block;margin-bottom:6px}
+.entity-mini .country{font-size:12px;font-weight:700;color:#e6edf3}
+.entity-mini .entity-st{margin-top:6px}
+
+/* --- OVERVIEW: Decisions list --- */
+.decision-list{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.decision-item{background:#161b22;border-radius:10px;padding:14px 18px;border:1px solid rgba(99,110,123,0.3);cursor:pointer;transition:all .2s;display:flex;align-items:flex-start;gap:12px}
+.decision-item:hover{border-color:rgba(88,166,255,0.4);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.decision-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:6px}
+.decision-text{flex:1}
+.decision-text strong{font-size:14px;color:#e6edf3;display:block;margin-bottom:2px}
+.decision-text span{font-size:12px;color:#8b949e}
+
+/* --- PIPELINE: candidate table --- */
+.pipeline-section{margin-bottom:28px}
+.pipeline-country{margin-bottom:20px}
+.pipeline-country-header{display:flex;align-items:center;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid rgba(99,110,123,0.2)}
+.pipeline-country-header .flag{font-size:20px}
+.pipeline-country-header .name{font-size:16px;font-weight:700}
+.pipeline-country-header .entity-badge{margin-left:auto}
+.cand-row{display:grid;grid-template-columns:200px 1fr 140px 140px 44px;gap:12px;align-items:center;padding:12px 16px;background:#161b22;border:1px solid rgba(99,110,123,0.2);border-radius:10px;margin-bottom:6px;transition:all .2s;cursor:pointer}
+.cand-row:hover{border-color:rgba(88,166,255,0.4);background:#1c2128}
+.cand-row .cand-name-cell{font-weight:700;font-size:14px;color:#e6edf3}
+.cand-row .cand-role-cell{font-size:12px;color:#8b949e}
+.cand-row .cand-status-cell{text-align:center}
+.cand-row .cand-backchannel-cell{font-size:11px;text-align:center}
+.cand-row .cand-link-cell{text-align:center}
+.bc-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.pipeline-table-header{display:grid;grid-template-columns:200px 1fr 140px 140px 44px;gap:12px;padding:6px 16px;margin-bottom:6px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:#8b949e}
+
+/* --- Backchannel section in pipeline --- */
+.backchannel-summary{background:#161b22;border-radius:12px;padding:20px;border:1px solid rgba(99,110,123,0.3);margin-top:24px}
+.backchannel-summary h3{font-size:15px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.backchannel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.backchannel-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
+.backchannel-col ul{list-style:none}
+.backchannel-col li{font-size:12px;padding:3px 0;color:#c9d1d9}
+
 /* Cards */
-.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
 .overview-card{background:#161b22;border-radius:12px;padding:20px;border:1px solid rgba(99,110,123,0.3);cursor:pointer;transition:all .25s}
 .overview-card:hover{border-color:rgba(88,166,255,0.4);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.4)}
-.overview-card.full-width{grid-column:1/-1}
-.card-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.card-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.card-title{font-size:16px;font-weight:700;color:#e6edf3}
-.card-subtitle{font-size:12px;color:#8b949e}
-.card-body{font-size:13px;color:#c9d1d9}
-.card-body ul{list-style:none;padding:0}
-.card-body li{padding:4px 0;padding-left:18px;position:relative}
-.card-body li::before{content:'';position:absolute;left:0;top:11px;width:7px;height:7px;border-radius:50%}
 
 /* Status */
 .st{display:inline-block;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600}
@@ -49,7 +96,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .source-link:hover{border-bottom-style:solid}
 
 /* Deep Dive */
-.deep-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.deep-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;position:sticky;top:47px;background:#0f1419;padding:12px 0;z-index:50;border-bottom:1px solid rgba(99,110,123,0.2)}
 .deep-nav-btn{padding:8px 16px;border:1px solid rgba(99,110,123,0.3);background:#161b22;color:#8b949e;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
 .deep-nav-btn:hover,.deep-nav-btn.active{background:rgba(88,166,255,0.1);border-color:#58a6ff;color:#e6edf3}
 .deep-section{background:#161b22;border-radius:12px;padding:24px;margin-bottom:16px;border:1px solid rgba(99,110,123,0.3);display:none}
@@ -134,22 +181,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .linkedin-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;background:#0077b5;color:#fff;border-radius:6px;font-size:11px;font-weight:600;text-decoration:none;margin-top:6px}
 .linkedin-btn:hover{background:#005f8d}
 
-/* News */
-.news-card{background:#161b22;border-radius:12px;padding:20px;margin-bottom:12px;border:1px solid rgba(99,110,123,0.3);border-left:4px solid}
-.news-card.ring1{border-left-color:#f87171}
-.news-card.ring2{border-left-color:#fbbf24}
-.news-card.ring3{border-left-color:#34d399}
-.news-card.trend{border-left-color:#58a6ff}
-.news-card h3{font-size:15px;margin-bottom:6px;color:#e6edf3}
-.news-card p{font-size:13px;color:#c9d1d9}
-.news-ring-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;margin-top:24px}
-
-/* Backchannel */
-.backchannel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:10px}
-.backchannel-col h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px}
-.backchannel-col ul{list-style:none}
-.backchannel-col li{font-size:12px;padding:3px 0;color:#c9d1d9}
-
 /* M&A */
 .mna-highlight{background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);border-radius:12px;padding:20px;margin-bottom:16px}
 .mna-highlight h3{color:#fbbf24;font-size:16px;margin-bottom:8px}
@@ -159,15 +190,18 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .section-title{font-size:20px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px;color:#e6edf3}
 .section-title .icon{font-size:24px}
 .divider{height:1px;background:rgba(99,110,123,0.3);margin:20px 0}
-.timestamp{font-size:11px;color:#8b949e;margin-bottom:16px}
+.timestamp{font-size:11px;color:#8b949e;margin-bottom:20px}
 
 /* Responsive */
 @media(max-width:800px){
-  .overview-grid{grid-template-columns:1fr}
+  .kpi-row{grid-template-columns:1fr 1fr}
+  .entity-status-row{grid-template-columns:repeat(3,1fr)}
   .entity-panel{width:100%;right:-100%}
   .strategy-grid{grid-template-columns:1fr}
   .city-grid{grid-template-columns:1fr}
   .backchannel-grid{grid-template-columns:1fr}
+  .cand-row{grid-template-columns:1fr;gap:4px}
+  .pipeline-table-header{display:none}
 }
 </style>
 </head>
@@ -175,6 +209,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('overview')">Overview</button>
+  <button class="tab-btn" onclick="switchTab('pipeline')">People &amp; Pipeline</button>
   <button class="tab-btn" onclick="switchTab('deepdive')">Deep Dive</button>
   <button class="tab-btn" onclick="switchTab('map')">Global Map</button>
 </div>
@@ -184,81 +219,399 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="section-title"><span class="icon">&#127758;</span> Global Update &mdash; Week of May 26, 2026</div>
   <div class="timestamp">Last updated: May 26, 2026</div>
 
-  <div class="overview-grid">
-    <!-- Entity Setup -->
-    <div class="overview-card" onclick="goDeepDive('entities')">
-      <div class="card-header">
-        <div class="card-icon" style="background:rgba(52,211,153,0.15);">&#127970;</div>
-        <div><div class="card-title">Entity Setups</div><div class="card-subtitle">7 jurisdictions tracked</div></div>
-        <span class="st st-g" style="margin-left:auto;">Mostly On Track</span>
-      </div>
-      <div class="card-body"><ul>
-        <li style="--c:#34d399"><span style="color:#34d399">&#9679;</span> <strong>Australia</strong> &mdash; LIVE. Bank account opening in progress.</li>
-        <li><span style="color:#fbbf24">&#9679;</span> <strong>Ireland</strong> &mdash; Entity done. Behind &mdash; accounting firm slow + internal delays.</li>
-        <li><span style="color:#f87171">&#9679;</span> <strong>UK</strong> &mdash; Entity done. SRA compliance blocked on lead hire.</li>
-        <li><span style="color:#34d399">&#9679;</span> <strong>Canada</strong> &mdash; Entity done. Next step: bank account. Payroll investigating regulatory issues, on track.</li>
-        <li><span style="color:#60a5fa">&#9679;</span> <strong>Dubai</strong> &mdash; Set up by end of week if no internal blockers.</li>
-        <li><span style="color:#60a5fa">&#9679;</span> <strong>Singapore</strong> &mdash; Accounting firm engaged. On track.</li>
-        <li><span style="color:#60a5fa">&#9679;</span> <strong>India</strong> &mdash; Accounting firm engaged. On track for end of July.</li>
-      </ul></div>
+  <!-- KPI Row -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:#34d399;">7</div>
+      <div class="kpi-label">Jurisdictions</div>
+      <div class="kpi-sub">1 LIVE &middot; 3 Entity Done &middot; 3 In Progress</div>
     </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:#58a6ff;">18</div>
+      <div class="kpi-label">Candidates</div>
+      <div class="kpi-sub">4 leads &middot; 6 strong &middot; 8 pipeline</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:#fbbf24;">3</div>
+      <div class="kpi-label">Key Decisions</div>
+      <div class="kpi-sub">Hiring strategy &middot; UK lead &middot; LATAM</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value" style="color:#f87171;">1</div>
+      <div class="kpi-label">Blocked</div>
+      <div class="kpi-sub">UK &mdash; SRA requires named lawyer</div>
+    </div>
+  </div>
 
-    <!-- Candidate Pipeline -->
-    <div class="overview-card" onclick="switchTab('map')">
-      <div class="card-header">
-        <div class="card-icon" style="background:rgba(96,165,250,0.15);">&#128101;</div>
-        <div><div class="card-title">Candidate Pipeline</div><div class="card-subtitle">Click to explore on map</div></div>
-      </div>
-      <div class="card-body" style="font-size:12px;">
-        <div style="margin-bottom:6px"><strong>&#127462;&#127482; Australia:</strong> <a class="candidate-link" href="https://linkedin.com/in/kate-vircoe-917b479a" target="_blank">Kate Vircoe</a> (standout), <a class="candidate-link" href="https://www.linkedin.com/in/martin-russell-86199212/" target="_blank">Martin Russell</a> (strong), <a class="candidate-link" href="https://linkedin.com/in/polina-oussova-69ba6621" target="_blank">Polina Oussova</a></div>
-        <div style="margin-bottom:6px"><strong>&#127480;&#127468; Singapore:</strong> <a class="candidate-link" href="https://www.linkedin.com/in/irin-ou/" target="_blank">Irin Ou</a> (top candidate)</div>
-        <div style="margin-bottom:6px"><strong>&#127464;&#127462; Canada:</strong> <a class="candidate-link" href="https://linkedin.com/in/jack-kim-%F0%9F%87%A8%F0%9F%87%A6-67887213" target="_blank">Jack Kim</a> (lead)</div>
-        <div style="margin-bottom:6px"><strong>&#127468;&#127463; UK:</strong> <a class="candidate-link" href="https://www.linkedin.com/in/andrew-barnett-41648128/" target="_blank">Andrew Barnett</a>, Yunelsi Wray, Antonio Lam, <a class="candidate-link" href="https://linkedin.com/in/carineelliott" target="_blank">Carine Elliott</a>, Camilla Kellerman</div>
-        <div><strong>&#127462;&#127466; Dubai:</strong> <a class="candidate-link" href="https://www.linkedin.com/in/sana-s-04a182a5/" target="_blank">Sana Sheikh</a></div>
+  <!-- Entity Status Row -->
+  <div class="section-header">
+    <span class="icon">&#127970;</span>
+    <h2>Entity Status</h2>
+    <button class="see-more" onclick="goDeepDive('entities')">See full details &rarr;</button>
+  </div>
+  <div class="entity-status-row">
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127462;&#127482;</span>
+      <div class="country">Australia</div>
+      <div class="entity-st"><span class="st st-g">LIVE</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Bank account in progress</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127464;&#127462;</span>
+      <div class="country">Canada</div>
+      <div class="entity-st"><span class="st st-g">Entity Done</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Next: bank account</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127468;&#127463;</span>
+      <div class="country">UK</div>
+      <div class="entity-st"><span class="st st-r">Blocked</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">SRA needs lead hire</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127470;&#127466;</span>
+      <div class="country">Ireland</div>
+      <div class="entity-st"><span class="st st-y">Behind</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Accounting firm slow</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127462;&#127466;</span>
+      <div class="country">Dubai</div>
+      <div class="entity-st"><span class="st st-b">In Progress</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Set up by end of week</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127480;&#127468;</span>
+      <div class="country">Singapore</div>
+      <div class="entity-st"><span class="st st-b">In Progress</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">Accounting firm engaged</div>
+    </div>
+    <div class="entity-mini" onclick="goDeepDive('entities')">
+      <span class="flag">&#127470;&#127475;</span>
+      <div class="country">India</div>
+      <div class="entity-st"><span class="st st-b">In Progress</span></div>
+      <div style="font-size:10px;color:#8b949e;margin-top:4px;">On track for end of July</div>
+    </div>
+  </div>
+
+  <!-- Key Decisions -->
+  <div class="section-header">
+    <span class="icon">&#9889;</span>
+    <h2>Key Decisions</h2>
+    <button class="see-more" onclick="goDeepDive('decisions')">Full analysis &rarr;</button>
+  </div>
+  <div class="decision-list">
+    <div class="decision-item" onclick="goDeepDive('strategy')">
+      <div class="decision-dot" style="background:#fbbf24;box-shadow:0 0 6px #fbbf24;"></div>
+      <div class="decision-text">
+        <strong>Dubai / Singapore / Australia Dynamic</strong>
+        <span>Sana, Irin, Kate vs Martin &mdash; interconnected decisions. Kate wants APAC leadership which may conflict with Irin's role. All three need to be decided together.</span>
       </div>
     </div>
-
-    <!-- Backchannel Status -->
-    <div class="overview-card full-width">
-      <div class="card-header">
-        <div class="card-icon" style="background:rgba(192,132,252,0.15);">&#128269;</div>
-        <div><div class="card-title">Backchannel Status</div><div class="card-subtitle">Reference checks and advisor network</div></div>
-      </div>
-      <div class="card-body">
-        <div class="backchannel-grid">
-          <div class="backchannel-col">
-            <h4 style="color:#34d399;">Strong Backchannels</h4>
-            <ul>
-              <li><span style="color:#34d399">&#9679;</span> <strong>Jack Kim</strong> &mdash; Haesung got strong recommendations</li>
-              <li><span style="color:#34d399">&#9679;</span> <strong>Irin Ou</strong> &mdash; Strong from Databricks via Soren Sturup Toft</li>
-              <li><span style="color:#34d399">&#9679;</span> <strong>Kate Vircoe</strong> &mdash; Voon shortlisted top 3; Brendan looking into it</li>
-              <li><span style="color:#34d399">&#9679;</span> <strong>Martin Russell</strong> &mdash; Introduced and recommended by Voon</li>
-            </ul>
-          </div>
-          <div class="backchannel-col">
-            <h4 style="color:#f87171;">No Backchannel Yet</h4>
-            <ul>
-              <li><span style="color:#f87171">&#9679;</span> <strong>Andrew Barnett</strong> &mdash; Pending since May 6</li>
-              <li><span style="color:#f87171">&#9679;</span> <strong>Kim Wong</strong> &mdash; No Mission connections found</li>
-              <li><span style="color:#f87171">&#9679;</span> <strong>Polina Oussova</strong> &mdash; None yet</li>
-              <li><span style="color:#f87171">&#9679;</span> <strong>Prema Kandia</strong> &mdash; Voon flagged concerns on fit</li>
-            </ul>
-          </div>
-        </div>
+    <div class="decision-item" onclick="goDeepDive('uk-hiring')">
+      <div class="decision-dot" style="background:#f87171;box-shadow:0 0 6px #f87171;"></div>
+      <div class="decision-text">
+        <strong>UK Lead Hire Strategy</strong>
+        <span>SRA practitioner needed to unblock application. Consider hiring someone willing to not be country lead so we can name them as SRA practitioner.</span>
       </div>
     </div>
-
-    <!-- Key Decisions -->
-    <div class="overview-card full-width" onclick="goDeepDive('decisions')">
-      <div class="card-header">
-        <div class="card-icon" style="background:rgba(248,113,113,0.15);">&#9889;</div>
-        <div><div class="card-title">Key Decisions</div><div class="card-subtitle">Items requiring attention</div></div>
+    <div class="decision-item" onclick="goDeepDive('decisions')">
+      <div class="decision-dot" style="background:#c084fc;box-shadow:0 0 6px #c084fc;"></div>
+      <div class="decision-text">
+        <strong>Global Leadership &mdash; Dedicated GM Needed</strong>
+        <span>Global needs a dedicated senior GM alongside Sophie. Different regulatory environments, delivery model, operational complexity. This needs to be part of the conversation.</span>
       </div>
-      <div class="card-body"><ul>
-        <li><span style="color:#fbbf24">&#9679;</span> <strong>Dubai / Singapore / Australia Dynamic</strong> &mdash; Sana, Irin, Kate vs Martin &mdash; interconnected decisions</li>
-        <li><span style="color:#f87171">&#9679;</span> <strong>UK Lead Hire Strategy</strong> &mdash; SRA practitioner needed to unblock application</li>
-        <li><span style="color:#60a5fa">&#9679;</span> <strong>Latin Research</strong> &mdash; Kick off soon</li>
-      </ul></div>
+    </div>
+    <div class="decision-item" onclick="goDeepDive('decisions')">
+      <div class="decision-dot" style="background:#60a5fa;box-shadow:0 0 6px #60a5fa;"></div>
+      <div class="decision-text">
+        <strong>LATAM Research</strong>
+        <span>Engaged in Mexico. Begin formal research into Latin American markets &mdash; market sizing, legal requirements, regulatory landscape.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Candidates quick view -->
+  <div class="section-header" style="margin-top:28px;">
+    <span class="icon">&#128101;</span>
+    <h2>Top Candidates at a Glance</h2>
+    <button class="see-more" onclick="switchTab('pipeline')">Full pipeline &rarr;</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px;">
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(52,211,153,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127462;&#127482; Australia</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/kate-vircoe-917b479a" target="_blank" onclick="event.stopPropagation()">Kate Vircoe</a> <span class="st st-g">Standout</span></div>
+      <div style="font-size:12px;color:#8b949e;">MD, Newland Chase ANZ &middot; 15+ yrs</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;"><a class="candidate-link" href="https://www.linkedin.com/in/martin-russell-86199212/" target="_blank" onclick="event.stopPropagation()">Martin Russell</a> <span class="st st-g">Strong</span></div>
+      <div style="font-size:12px;color:#8b949e;">Recommended by Voon &amp; Brendan</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/polina-oussova-69ba6621" target="_blank" onclick="event.stopPropagation()">Polina Oussova</a> <span class="st st-y">3rd Interview</span></div>
+      <div style="font-size:12px;color:#8b949e;">Ex-Deloitte/BAL</div>
+    </div>
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(96,165,250,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127480;&#127468; Singapore</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;"><a class="candidate-link" href="https://www.linkedin.com/in/irin-ou/" target="_blank" onclick="event.stopPropagation()">Irin Ou</a> <span class="st st-g">Top Candidate</span></div>
+      <div style="font-size:12px;color:#8b949e;">Director, Vialto Partners &middot; 4+ yrs Director</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;"><a class="candidate-link" href="https://www.linkedin.com/in/prema-k-06b968a2/" target="_blank" onclick="event.stopPropagation()">Prema Kandia</a> <span class="st st-b">Pipeline</span></div>
+      <div style="font-size:12px;color:#8b949e;">Voon flagged concerns on fit</div>
+    </div>
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(163,130,250,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127464;&#127462; Canada</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/jack-kim-%F0%9F%87%A8%F0%9F%87%A6-67887213" target="_blank" onclick="event.stopPropagation()">Jack Kim</a> <span class="st st-g">Lead</span></div>
+      <div style="font-size:12px;color:#8b949e;">Partner, Fragomen &middot; Negotiating</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/rick-lamanna-48186715" target="_blank" onclick="event.stopPropagation()">Rick Lamanna</a> <span class="st st-b">Pipeline</span></div>
+      <div style="font-size:12px;color:#8b949e;">Fragomen</div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(248,113,113,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127468;&#127463; UK <span class="st st-r" style="font-size:9px;margin-left:4px;">5 candidates</span></div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;"><a class="candidate-link" href="https://www.linkedin.com/in/andrew-barnett-41648128/" target="_blank" onclick="event.stopPropagation()">Andrew Barnett</a> <span class="st st-y">In Process</span></div>
+      <div style="font-size:14px;font-weight:700;margin-top:6px;margin-bottom:4px;">Yunelsi Wray <span class="st st-y">In Process</span></div>
+      <div style="font-size:14px;font-weight:700;margin-top:6px;margin-bottom:4px;">Antonio Lam <span class="st st-b">Still an Option</span></div>
+      <div style="font-size:14px;font-weight:700;margin-top:6px;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/carineelliott" target="_blank" onclick="event.stopPropagation()">Carine Elliott</a> <span class="st st-b">Pipeline</span></div>
+      <div style="font-size:14px;font-weight:700;margin-top:6px;margin-bottom:4px;">Camilla Kellerman <span class="st st-b">Pipeline</span></div>
+    </div>
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(251,191,36,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127470;&#127466; Ireland</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;">Aaron Flynn <span class="st st-g">2nd Round Today</span></div>
+      <div style="font-size:12px;color:#8b949e;">Director, Envoy Global &middot; 20+ yrs</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;"><a class="candidate-link" href="https://linkedin.com/in/kim-wong-2344b359" target="_blank" onclick="event.stopPropagation()">Kim Wong</a> <span class="st st-y">Not Yet Scheduled</span></div>
+      <div style="font-size:12px;color:#8b949e;">Director, Deloitte</div>
+      <div style="font-size:14px;font-weight:700;margin-top:8px;margin-bottom:4px;">Aine Hartigan <span class="st st-b">Pipeline</span></div>
+    </div>
+    <div style="background:#161b22;border-radius:10px;padding:16px;border:1px solid rgba(96,165,250,0.3);cursor:pointer;" onclick="switchTab('pipeline')">
+      <div style="font-size:11px;color:#8b949e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">&#127462;&#127466; Dubai</div>
+      <div style="font-size:14px;font-weight:700;margin-bottom:4px;"><a class="candidate-link" href="https://www.linkedin.com/in/sana-s-04a182a5/" target="_blank" onclick="event.stopPropagation()">Sana Sheikh</a> <span class="st st-y">Round 2</span></div>
+      <div style="font-size:12px;color:#8b949e;">Immigration Lawyer</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PEOPLE & PIPELINE ==================== -->
+<div id="tab-pipeline" class="tab-panel">
+  <div class="section-title"><span class="icon">&#128101;</span> People &amp; Pipeline</div>
+  <div class="timestamp">All candidates across 7 jurisdictions. Click any row for details.</div>
+
+  <div style="background:rgba(88,166,255,0.06);border:1px solid rgba(88,166,255,0.25);border-radius:10px;padding:14px 16px;margin-bottom:24px;">
+    <div style="font-size:13px;color:#c9d1d9;"><span style="color:#58a6ff;font-weight:700;">Pipeline Goal:</span> We are building out pipelines so that we have <strong>3&ndash;4 finalists in every country</strong> before making a final hire decision. The follow-ups below are about deepening our top candidates while continuing to source additional pipeline in parallel &mdash; not about rushing to close on a single person per market.</div>
+  </div>
+
+  <!-- Australia -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127462;&#127482;</span>
+      <span class="name">Australia</span>
+      <span class="entity-badge"><span class="st st-g">LIVE</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('australia')">
+      <div class="cand-name-cell">Kate Vircoe</div>
+      <div class="cand-role-cell">MD, Newland Chase ANZ &middot; 15+ yrs corporate immigration</div>
+      <div class="cand-status-cell"><span class="st st-g">Standout</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#34d399;"></span>Strong</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/kate-vircoe-917b479a" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('australia')">
+      <div class="cand-name-cell">Martin Russell</div>
+      <div class="cand-role-cell">Immigration Lawyer &middot; Recommended by Voon &amp; Brendan</div>
+      <div class="cand-status-cell"><span class="st st-g">Strong Backup</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#34d399;"></span>Strong</div>
+      <div class="cand-link-cell"><a href="https://www.linkedin.com/in/martin-russell-86199212/" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('australia')">
+      <div class="cand-name-cell">Polina Oussova</div>
+      <div class="cand-role-cell">Immigration Lawyer &middot; Ex-Deloitte/BAL</div>
+      <div class="cand-status-cell"><span class="st st-y">3rd Interview</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#f87171;"></span>None</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/polina-oussova-69ba6621" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+  </div>
+
+  <!-- Singapore -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127480;&#127468;</span>
+      <span class="name">Singapore</span>
+      <span class="entity-badge"><span class="st st-b">In Progress</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('singapore')">
+      <div class="cand-name-cell">Irin Ou</div>
+      <div class="cand-role-cell">Director of Immigration, Vialto Partners &middot; 4+ yrs Director</div>
+      <div class="cand-status-cell"><span class="st st-g">Top Candidate</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#34d399;"></span>Strong</div>
+      <div class="cand-link-cell"><a href="https://www.linkedin.com/in/irin-ou/" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('singapore')">
+      <div class="cand-name-cell">Prema Kandia</div>
+      <div class="cand-role-cell">Immigration Specialist</div>
+      <div class="cand-status-cell"><span class="st st-b">Pipeline</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#f87171;"></span>Concerns</div>
+      <div class="cand-link-cell"><a href="https://www.linkedin.com/in/prema-k-06b968a2/" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+  </div>
+
+  <!-- Canada -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127464;&#127462;</span>
+      <span class="name">Canada</span>
+      <span class="entity-badge"><span class="st st-g">Entity Done</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('canada')">
+      <div class="cand-name-cell">Jack Kim</div>
+      <div class="cand-role-cell">Partner &mdash; Canada + LatAm, Fragomen</div>
+      <div class="cand-status-cell"><span class="st st-g">Lead Candidate</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#34d399;"></span>Strong</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/jack-kim-%F0%9F%87%A8%F0%9F%87%A6-67887213" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('canada')">
+      <div class="cand-name-cell">Rick Lamanna</div>
+      <div class="cand-role-cell">Immigration Lawyer, Fragomen</div>
+      <div class="cand-status-cell"><span class="st st-b">Pipeline</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>None</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/rick-lamanna-48186715" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+  </div>
+
+  <!-- UK -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127468;&#127463;</span>
+      <span class="name">United Kingdom</span>
+      <span class="entity-badge"><span class="st st-r">SRA Blocked</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('uk')">
+      <div class="cand-name-cell">Andrew Barnett</div>
+      <div class="cand-role-cell">Senior Immigration Lawyer &middot; Ex-Fragomen &middot; 12 yrs UK immigration</div>
+      <div class="cand-status-cell"><span class="st st-y">In Process</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#f87171;"></span>Pending</div>
+      <div class="cand-link-cell"><a href="https://www.linkedin.com/in/andrew-barnett-41648128/" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('uk')">
+      <div class="cand-name-cell">Yunelsi Wray</div>
+      <div class="cand-role-cell">UK Practice Candidate</div>
+      <div class="cand-status-cell"><span class="st st-y">In Process</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('uk')">
+      <div class="cand-name-cell">Antonio Lam</div>
+      <div class="cand-role-cell">Senior Immigration Lawyer</div>
+      <div class="cand-status-cell"><span class="st st-b">Still an Option</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('uk')">
+      <div class="cand-name-cell">Carine Elliott</div>
+      <div class="cand-role-cell">Junior Immigration Lawyer &middot; Ex-Fragomen</div>
+      <div class="cand-status-cell"><span class="st st-b">Pipeline</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/carineelliott" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('uk')">
+      <div class="cand-name-cell">Camilla Kellerman</div>
+      <div class="cand-role-cell">Junior Immigration Lawyer</div>
+      <div class="cand-status-cell"><span class="st st-b">Pipeline</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"></div>
+    </div>
+  </div>
+
+  <!-- Ireland -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127470;&#127466;</span>
+      <span class="name">Ireland</span>
+      <span class="entity-badge"><span class="st st-y">Behind</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('ireland')">
+      <div class="cand-name-cell">Aaron Flynn</div>
+      <div class="cand-role-cell">Director of Immigration (Ireland), Envoy Global &middot; 20+ yrs</div>
+      <div class="cand-status-cell"><span class="st st-g">2nd Round Today</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#34d399;"></span>Lead</div>
+      <div class="cand-link-cell"></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('ireland')">
+      <div class="cand-name-cell">Kim Wong</div>
+      <div class="cand-role-cell">Director of Immigration, Deloitte</div>
+      <div class="cand-status-cell"><span class="st st-y">Not Yet Scheduled</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#f87171;"></span>None</div>
+      <div class="cand-link-cell"><a href="https://linkedin.com/in/kim-wong-2344b359" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+    <div class="cand-row" onclick="openEntity('ireland')">
+      <div class="cand-name-cell">Aine Hartigan</div>
+      <div class="cand-role-cell">Immigration Lawyer</div>
+      <div class="cand-status-cell"><span class="st st-b">Pipeline</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"></div>
+    </div>
+  </div>
+
+  <!-- Dubai -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127462;&#127466;</span>
+      <span class="name">Dubai</span>
+      <span class="entity-badge"><span class="st st-b">In Progress</span></span>
+    </div>
+    <div class="pipeline-table-header">
+      <span>Name</span><span>Role / Firm</span><span>Status</span><span>Backchannel</span><span></span>
+    </div>
+    <div class="cand-row" onclick="openEntity('dubai')">
+      <div class="cand-name-cell">Sana Sheikh</div>
+      <div class="cand-role-cell">Immigration Lawyer</div>
+      <div class="cand-status-cell"><span class="st st-y">Round 2</span></div>
+      <div class="cand-backchannel-cell"><span class="bc-dot" style="background:#8b949e;"></span>&mdash;</div>
+      <div class="cand-link-cell"><a href="https://www.linkedin.com/in/sana-s-04a182a5/" target="_blank" onclick="event.stopPropagation()" class="linkedin-btn" style="padding:2px 8px;font-size:10px;">in</a></div>
+    </div>
+  </div>
+
+  <!-- India -->
+  <div class="pipeline-country">
+    <div class="pipeline-country-header">
+      <span class="flag">&#127470;&#127475;</span>
+      <span class="name">India</span>
+      <span class="entity-badge"><span class="st st-b">In Progress</span></span>
+    </div>
+    <div style="padding:12px 16px;font-size:13px;color:#8b949e;font-style:italic;">Recruiting not yet initiated. Entity on track for end of July.</div>
+  </div>
+
+  <!-- Backchannel Summary -->
+  <div class="backchannel-summary">
+    <h3><span style="font-size:18px;">&#128269;</span> Backchannel Status</h3>
+    <div class="backchannel-grid">
+      <div class="backchannel-col">
+        <h4 style="color:#34d399;">Strong Backchannels</h4>
+        <ul>
+          <li><span style="color:#34d399">&#9679;</span> <strong>Jack Kim</strong> &mdash; Haesung got strong recommendations</li>
+          <li><span style="color:#34d399">&#9679;</span> <strong>Irin Ou</strong> &mdash; Strong from Databricks via Soren Sturup Toft</li>
+          <li><span style="color:#34d399">&#9679;</span> <strong>Kate Vircoe</strong> &mdash; Voon shortlisted top 3; Brendan looking into it</li>
+          <li><span style="color:#34d399">&#9679;</span> <strong>Martin Russell</strong> &mdash; Introduced and recommended by Voon</li>
+        </ul>
+      </div>
+      <div class="backchannel-col">
+        <h4 style="color:#f87171;">No Backchannel Yet</h4>
+        <ul>
+          <li><span style="color:#f87171">&#9679;</span> <strong>Andrew Barnett</strong> &mdash; Pending since May 6</li>
+          <li><span style="color:#f87171">&#9679;</span> <strong>Kim Wong</strong> &mdash; No Mission connections found</li>
+          <li><span style="color:#f87171">&#9679;</span> <strong>Polina Oussova</strong> &mdash; None yet</li>
+          <li><span style="color:#f87171">&#9679;</span> <strong>Prema Kandia</strong> &mdash; Voon flagged concerns on fit</li>
+        </ul>
+      </div>
     </div>
   </div>
 </div>
@@ -270,7 +623,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
   <div class="deep-nav">
     <button class="deep-nav-btn active" onclick="showDD('decisions')">Key Decisions</button>
     <button class="deep-nav-btn" onclick="showDD('strategy')">Hiring Strategy</button>
-    <button class="deep-nav-btn" onclick="showDD('mna')">M&A</button>
+    <button class="deep-nav-btn" onclick="showDD('mna')">M&amp;A</button>
     <button class="deep-nav-btn" onclick="showDD('uk-hiring')">UK Hiring</button>
     <button class="deep-nav-btn" onclick="showDD('entities')">Entity Setup</button>
     <button class="deep-nav-btn" onclick="showDD('jack-visit')">Jack Kim Visit</button>
@@ -747,7 +1100,6 @@ var destinations={
     var dest=geoToSvg(d.lon,d.lat);
     var mx=(nyc.x+dest.x)/2;
     var my=(nyc.y+dest.y)/2;
-    // Arc upward: control point above midpoint
     var dist=Math.sqrt(Math.pow(dest.x-nyc.x,2)+Math.pow(dest.y-nyc.y,2));
     var cy2=my-dist*0.25;
     if(cy2<10)cy2=10;
@@ -764,7 +1116,7 @@ function switchTab(t){
   document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active')});
   document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
   document.getElementById('tab-'+t).classList.add('active');
-  var tabs=['overview','deepdive','map'];
+  var tabs=['overview','pipeline','deepdive','map'];
   var i=tabs.indexOf(t);
   if(i>=0)document.querySelectorAll('.tab-btn')[i].classList.add('active');
 }
@@ -775,7 +1127,6 @@ function showDD(s){
   document.querySelectorAll('.deep-nav-btn').forEach(function(b){b.classList.remove('active')});
   var el=document.getElementById('dd-'+s);
   if(el)el.classList.add('active');
-  // Highlight nav btn
   var btns=document.querySelectorAll('.deep-nav-btn');
   var map={decisions:0,strategy:1,mna:2,'uk-hiring':3,entities:4,'jack-visit':5};
   if(map[s]!==undefined&&btns[map[s]])btns[map[s]].classList.add('active');
